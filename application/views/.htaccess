@@ -1,0 +1,61 @@
+    <?php
+defined('BASEPATH') OR exit('No direct script access allowed');
+?>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Sistema de Administracion de Citas Medicas">
+    <meta name="author" content="Meditron C.A">
+
+    <title>Sistema de Administracion de Citas Medicas</title>
+
+    <!-- Bootstrap Core CSS -->
+    <!-- <link href="css/bootstrap.min.css" rel="stylesheet"> -->
+    <?php echo link_tag('css/bootstrap.min.css'); ?>
+
+    <!-- Custom CSS -->
+    <!-- <link href="css/sb-admin.css" rel="stylesheet">  -->
+    <?php echo link_tag('css/sb-admin.css'); ?>
+    <!-- Custom Fonts -->
+    <!-- <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <?php 
+        echo link_tag('css/font-awesome.min.css');
+        echo link_tag('font-awesome/css/font-awesome.min.css');
+    ?>
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <?php 
+        echo link_tag('fullcalendar/lib/cupertino/jquery-ui.min.css');
+        echo link_tag('fullcalendar/fullcalendar.css');
+        echo link_tag('fullcalendar/fullcalendar.min.js');
+    ?>
+
+</head>
+
+<body>
+
+    <!-- <div id="wrapper"> -->
+  <div id="page-wrapper" class="container-fluid">
+
+        <!-- Navigation -->
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <ul class="nav navbar-right top-nav">        
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <?php echo "Cedula Afiliado: ".$this->session->userdata('cedulau'); ?><b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="<?php  echo site_url('acceso/cerrar');?>"><i class="fa fa-fw fa-power-off"></i> Salir</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
