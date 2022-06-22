@@ -4,7 +4,7 @@
  * www.crudigniter.com
  */
  
-class Doctor extends CI_Controller
+class Patient extends CI_Controller
 {
     function __construct()
     {
