@@ -35,10 +35,11 @@ class Doctor extends CI_Controller
        $data['marital'] = $this->MaritalStatus_model->get_all_maritalstatus2();
        $data['stream'] = $this->StreamTool_model->get_all_streamtool();
        $data['mymessage'] = null;
-       $this->load->view('head');
+       //$this->load->view('head');
        $this->load->view('doctor/content_register_dr',$data);
-       $this->load->view('footer');
+       //$this->load->view('footer');
     }
+
 
     function profile()
     {

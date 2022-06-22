@@ -83,8 +83,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     </div>
 
      <!-- Core Scripts - Include with every page -->
-    <script src="<?php echo base_url().'assets/plugins/jquery-1.10.2.js';?>"></script>
-    <script src="<?pho echo base_url().'assets/plugins/bootstrap/bootstrap.min.js';?>"></script>
+    <script src="<?php echo base_url().'assets/plugins/jquery-3.6.0.js';?>"></script>
+    <script src="<?php echo base_url().'assets/plugins/bootstrap/bootstrap-3.4.1-dist/js/bootstrap.min.js';?>"></script>
     <script src="<?php echo base_url().'assets/plugins/metisMenu/jquery.metisMenu.js'?>"></script>
 
 </body>

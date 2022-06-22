@@ -176,7 +176,7 @@
                                                 $this->load->model('Specialist_model');
                                                 ?>
                                                 <label>Specialist - Press Ctrl for 2 or more selections-</label>
-                                                <select name="idSpecialist[]" class="form-control" multiple="multiple">
+                                                <select id="speciality" name="idSpecialist[]" class="form-control" multiple="multiple">
                                                 <?php 
                                                     foreach($idsSpe as $idss) {
 
