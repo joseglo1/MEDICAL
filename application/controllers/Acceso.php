@@ -64,8 +64,22 @@ class Acceso extends CI_Controller
           }
           else
           {
-            $tit['errorlogin'] = "Error login";
-            $this->load->view('acceso/login',$tit);
+            // Enter Patient 
+            $this->load->model('Patient_model');
+            $this->load->model('Specialist_model');
+            $this->load->model('Language_model');
+            $user_ide = $approve['id_User'];
+            $patient = $this->Patient_model->get_patient_byuser($user_ide);
+            $theidpatient = $patient;
+            $data['patient']   = $this->Patient_model->get_user_patient($user_ide);
+            $data['specialities'] = $this->Specialist_model->get_all_specialist();
+            $data['languages'] = $this->Language_model->get_all_language();
+            $data['mymessage'] = null;
+
+            $this->load->view('head_patient');
+            $this->load->view('patient/home',$data);
+            $this->load->view('footer');
+
           }
         }
         else

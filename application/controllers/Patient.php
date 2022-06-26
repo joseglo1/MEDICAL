@@ -9,7 +9,7 @@ class Patient extends CI_Controller
     function __construct()
     {
         parent::__construct();
-        $this->load->model('Doctor_model');
+        $this->load->model('Patient_model');
     } 
 
     
@@ -23,26 +23,22 @@ class Patient extends CI_Controller
        $this->session->sess_destroy();
        /*   */ 
        $this->load->model('Nationality_model');
-       $this->load->model('Specialist_model');
        $this->load->model('Language_model');
        $this->load->model('MaritalStatus_model');
-       $this->load->model('StreamTool_model');
        $this->load->model('User_model');
 
        $data['nationalities'] = $this->Nationality_model->get_all_nationality();
-       $data['specialities'] = $this->Specialist_model->get_all_specialist();
        $data['languages'] = $this->Language_model->get_all_language();
        $data['marital'] = $this->MaritalStatus_model->get_all_maritalstatus2();
-       $data['stream'] = $this->StreamTool_model->get_all_streamtool();
        $data['mymessage'] = null;
-       $this->load->view('head');
-       $this->load->view('doctor/content_register_dr',$data);
-       $this->load->view('footer');
+       //$this->load->view('head');
+       $this->load->view('patient/content_register_pa',$data);
+       //$this->load->view('footer');
     }
 
     function profile()
     {
-       $this->load->model('Doctor_model');
+       $this->load->model('Patient_model');
        $this->load->model('Nationality_model');
        $this->load->model('Specialist_model');
        $this->load->model('Language_model');
@@ -51,7 +47,7 @@ class Patient extends CI_Controller
        $this->load->model('User_model');
 
        $userme = $this->session->userdata('iduser');
-       $data['doctor'] = $this->Doctor_model->get_user_doctor($userme);
+       $data['doctor'] = $this->Patient_model->get_user_patient($userme);
        $data['nationalities'] = $this->Nationality_model->get_all_nationality();
        $data['specialities'] = $this->Specialist_model->get_all_specialist();
        $data['languages'] = $this->Language_model->get_all_language();
@@ -59,7 +55,7 @@ class Patient extends CI_Controller
        $data['stream'] = $this->StreamTool_model->get_all_streamtool();
        $data['mymessage'] = null;
        $this->load->view('head');
-       $this->load->view('doctor/profile',$data);
+       $this->load->view('patient/profile',$data);
        $this->load->view('footer');
     }
     function home()
@@ -78,38 +74,38 @@ class Patient extends CI_Controller
        $data['stream'] = $this->StreamTool_model->get_all_streamtool();
        $data['mymessage'] = null;
        $this->load->view('head');
-       $this->load->view('doctor/home',$data);
+       $this->load->view('patient/home',$data);
        $this->load->view('footer');
     }
 
     function credentials()
     {
        $this->load->model('Document_model');
-       $this->load->model('Doctor_model');
+       $this->load->model('Patient_model');
        $this->load->model('Credentials_model');
        $this->load->model('User_model');
 
        $userme              = $this->session->userdata('iduser');
-       $iddr                = $this->Doctor_model->get_doctor_byuser($userme);
-       $data['doctor']      = $this->Doctor_model->get_user_doctor($userme);
+       $idpa                = $this->Patient_model->get_patient_byuser($userme);
+       $data['patient']     = $this->Patient_model->get_user_patient($userme);
        $data['credentials'] = $this->Credentials_model->get_all_credentials_doctor($iddr);
        $data['documents']   = $this->Document_model->get_all_document2();
        $data['mymessage']   = null;
        $this->load->view('head');
-       $this->load->view('doctor/content_credentials_dr',$data);
+       $this->load->view('patient/content_credentials_pa',$data);
        $this->load->view('footer');
     }
 
     function signup()
     {
-      $error_form    = 0;
+     
       /*
         Email Validation
       */
       $this->load->model('User_model');
 
-
-      $thename       = $this->input->post('NameDr');
+      $error_form    = 0;
+      $thename       = $this->input->post('NamePa');
       $themiddlename = $this->input->post('MiddleName');
       $thelastname   = $this->input->post('LastName');
       $thefullname   = $thename." ".$themiddlename." ".$thelastname;
@@ -129,40 +125,34 @@ class Patient extends CI_Controller
         $typeuser     = "D"; // Type of user Doctor
 
         $datai = array('Name' => $thefullname, 'Email' => $theemail, 
-          'Type_User' => 'D', 'Password' => $hash, 'Active' => 0);
+          'Type_User' => 'P', 'Password' => $hash, 'Active' => 0);
             $str = $this->db->insert_string('user', $datai);
             $insert_user = $this->db->simple_query($str);
 
         if($insert_user) 
         {
-          $theiduser               = $this->db->insert_id();
-          $thegender               = $this->input->post('Gender');
-          $theidMaritalStatus      = $this->input->post('idMaritalStatus');
-          $theidnationality        = $this->input->post('idNationality');
-          $thedatebirth            = $this->input->post('DateBirth');
-          $thephonenumber          = $this->input->post('PhoneNumber');
-          $theidspecialist         = array();
-          $theidspecialist         = $this->input->post('idSpecialist');
-          $theexperienceyears      = $this->input->post('ExperienceYears');
-          $theidlanguage           = array();
-          $theidlanguage           = $this->input->post('idLanguage');
-          $theidstreamtool         = $this->input->post('idStreamTool');
-          //$thedrpicture            = $this->input->post('DrPicture');
-          $theresum                = $this->input->post('Resum');
+          $theiduser                 = $this->db->insert_id();
+          $thegender                 = $this->input->post('Gender');
+          $theidMaritalStatus        = $this->input->post('idMaritalStatus');
+          $theidnationality          = $this->input->post('idNationality');
+          $thedatebirth              = $this->input->post('DateBirth');
+          $thephonenumber            = $this->input->post('PhoneNumber');
+          $theidspecialist           = array();
+          $theidspecialist           = $this->input->post('idSpecialist');
+          $theexperienceyears        = $this->input->post('ExperienceYears');
+          $thesmoker                 = $this->input->post('smoker');
+          $thechronicdesease         = $this->input->post('chronicdesease');
+          $theidlanguage             = array();
+          $theidlanguage             = $this->input->post('idLanguage');
+          $themyheight               = $this->input->post('myheight');
+          $themyweight               = $this->input->post('myweight');
+          $thechronicdesease         = $this->input->post('chronicdesease');
+          $thenotechronicdesease     = $this->input->post('note_chronic_desease');
+          $thefamilydeseasehistory   = $this->input->post('family_desease_history');
+          $thepapicture              = $this->input->post('PaPicture');
           /* Recording Especialist and Languages
               to a String Format Delimited by |
           */
-          $StrEspecialist ="";
-          $first=0;
-          foreach($theidspecialist as $esp) {
-            if($first==0) {
-              $first=1;
-              $StrEspecialist = $esp;
-            }
-            else {
-              $StrEspecialist .= "|".$esp;
-            }
-          }
         
           $StrLanguage ="";
           $first=0;
@@ -175,31 +165,38 @@ class Patient extends CI_Controller
                $StrLanguage .= "|".$lan;
             }
           }
-        
-          $datadr = array(
+         
+          $datapa = array(
             'id_User' => $theiduser,
             'First_Name' => $thename, 
             'Middle_Name' => $themiddlename, 
             'Last_Name' => $thelastname,
             'Gender' => $thegender,
-            'id_Marital_Status' => $theidMaritalStatus,
-            'id_Nationality' => $theidnationality,
             'Date_Birth' => $thedatebirth,
-            'Phone_Number' => $thephonenumber,
-            'id_Specialist' => $StrEspecialist,
-            'Experience_Years' => $theexperienceyears,
+            'id_Nationality' => $theidnationality,
             'id_Language' => $StrLanguage,
-            'id_Stream_Tool' => $theidstreamtool, 
-            'Resum' => $theresum);
+            'id_Marital_Status' => $theidMaritalStatus,
+            'Smoker' => $thesmoker,
+            'Phone_Number' => $thephonenumber,
+            'Height' => $themyheight,
+            'Weight' =>  $themyweight,
+            'Chronic_Desease' => $thechronicdesease,
+            'Note_Chronic_Desease' => $thenotechronicdesease, 
+            'Family_Desease_History' => $thefamilydeseasehistory,
+            'Email' =>  $theemail,
+            'picture' => $thepapicture
+          );
 
-          $strdr = $this->db->insert_string('doctor', $datadr);
-          $insert_dr  = $this->db->query($strdr);
-          $theiddr    = $this->db->insert_id();
+          //print_r($datapa);
+          $strpa      = $this->db->insert_string('patient', $datapa);
+          $insert_pa  = $this->db->query($strpa);
+          $theidpa    = $this->db->insert_id();
 
           /* SEND EMAIL */
           $to = $theemail;
-          $subject = "Welcome, Register Succesfully !";
-            $txt = "We received your application #".$theiddr." You completed the first step. The next step is login and upload your credentials. When you completed this requirement we will review your application within 3 working days. In case of aprovement we will send you an email. Thank you.";
+          $subject = "Welcome, ".$thefullname." Register Succesfully !";
+            $txt = "We received your application #".$theidpa." You completed successfully the
+            register <br><strong>Password: </strong>".$thepassword;
             $headers = "MIME-Version: 1.0" . "\r\n";
             $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
             // More headers
@@ -212,66 +209,64 @@ class Patient extends CI_Controller
 
           /*  */
 
-          /*if($insert_dr) {
+          if($insert_pa && $thepapicture <> '') {
             $directorio_destino = base_url()."upload/drs/";
-            $miarchivo = $theiddr.$thedrpicture;
-            $config['upload_path'] = "upload/drs/";
-            $config['file_name'] = $theiddr.$thedrpicture;
-            $config['allowed_types'] = 'gif|jpg|png|jpeg';
-            $config['overwrite'] = true;
-            $config['max_size'] = '100000';
-            $config['max_width'] = '2000';
-            $config['max_height'] = '2000';
+            $miarchivo = $theidpa.$thepapicture;
+            $config['upload_path']    = "upload/pas/";
+            $config['file_name']      = $theidpa.$thepapicture;
+            $config['allowed_types']  = 'gif|jpg|png|jpeg';
+            $config['overwrite']      = true;
+            $config['max_size']       = '100000';
+            $config['max_width']      = '2000';
+            $config['max_height']     = '2000';
 
             $this->load->library('upload',$config); 
-            $upload_myfile = $this->upload->do_upload($thedrpicture);
+            $upload_myfile = $this->upload->do_upload($thepapicture);
             //if(!$upload_myfile) {
               /// Error
             //}
-          } */
+          } 
 
         } // end insert user
 
-        $data['misdatos'] = $datadr;
-        $this->load->view('doctor/prueba',$data);
+        //$data['misdatos'] = $datapa;
+        //$this->load->view('patient/prueba',$data);
 
       }
-      else
-      {
 
-        $this->load->model('Nationality_model');
-        $this->load->model('Specialist_model');
-        $this->load->model('Language_model');
-        $this->load->model('MaritalStatus_model');
-        $this->load->model('StreamTool_model');
+      $this->load->model('Nationality_model');
+      $this->load->model('Language_model');
+      $this->load->model('MaritalStatus_model');
+      $this->load->model('StreamTool_model');
 
-        $data['nationalities'] = $this->Nationality_model->get_all_nationality();
-        $data['specialities'] = $this->Specialist_model->get_all_specialist();
-        $data['languages'] = $this->Language_model->get_all_language();
-        $data['marital'] = $this->MaritalStatus_model->get_all_maritalstatus2();
-        $data['stream'] = $this->StreamTool_model->get_all_streamtool();
-        if($error_form==1) {
-          $data['mymessage'] = "Oops the passwords no match ";
-        }
-        if($error_form==2) {
-          $data['mymessage'] = "Oops email exists already ";
-        }
-        $this->load->view('head');
-        $this->load->view('doctor/content_register_dr',$data);
-        $this->load->view('footer');
+      $data['nationalities'] = $this->Nationality_model->get_all_nationality();
+      $data['languages'] = $this->Language_model->get_all_language();
+      $data['marital'] = $this->MaritalStatus_model->get_all_maritalstatus2();
+      $data['stream'] = $this->StreamTool_model->get_all_streamtool();
+      if($error_form==0) {
+        $data['mymessage'] = "Register Succesfully - Check Email - ";
       }
+      if($error_form==1) {
+        $data['mymessage'] = "Oops the passwords no match ";
+      }
+      if($error_form==2) {
+        $data['mymessage'] = "Oops email exists already ";
+      }
+      $this->load->view('head');
+      $this->load->view('patient/content_register_pa',$data);
+      $this->load->view('footer');
     }
 
     function updatefoto() {
 
       $Result_Message = null;
       $myerror = true;
-      $this->load->model('Doctor_model');
-      $thedrpicture     = $this->input->post('myprofile');
-      $iddoctor         = $this->input->post('iddoctor');
+      $this->load->model('Patient_model');
+      $thepapicture     = $this->input->post('myprofile');
+      $idpatient        = $this->input->post('idpatient');
       
-      $nombre_imagen    = "DR-".$iddoctor."-".$_FILES['mydocument']['name'];
-      //$nombre_imagen    = "DR-".$iddoctor.$_FILES['mydocument']['type'];
+      $nombre_imagen    = "PA-".$idpatient."-".$_FILES['mydocument']['name'];
+      //$nombre_imagen    = "PA-".$idoatient.$_FILES['mydocument']['type'];
       $tipo_imagen      = $_FILES['mydocument']['type'];
       $tamano_imagen    = $_FILES['mydocument']['size'];
       $carpeta_destino  = $_SERVER['DOCUMENT_ROOT']."/MEDICAL/upload/profile/";
@@ -283,9 +278,9 @@ class Patient extends CI_Controller
         
         $params = array('picture' => $nombre_imagen);
 
-        $updatedr = $this->Doctor_model->update_doctor($iddoctor,$params);
+        $updatepa = $this->Patient_model->update_patient($idpatient,$params);
 
-        if($updatedr) {
+        if($updatepa) {
            $image_final = $carpeta_destino.$nombre_imagen;
           move_uploaded_file($_FILES['mydocument']['tmp_name'], $image_final);
         }
@@ -315,7 +310,7 @@ class Patient extends CI_Controller
       $data['stream'] = $this->StreamTool_model->get_all_streamtool();
       $data['mymessage'] = $Result_Message;
       $this->load->view('head');
-      $this->load->view('doctor/profile',$data);
+      $this->load->view('patient/profile',$data);
       $this->load->view('footer');
     }
 
@@ -324,7 +319,7 @@ class Patient extends CI_Controller
       $myerror = true;
       $Result_Message = null;
 
-      $this->load->model('Doctor_model');
+      $this->load->model('Patient_model');
 
       $iddoctor               = $this->input->post('iddoctor');
       $thename                = $this->input->post('NameDr');
@@ -385,9 +380,9 @@ class Patient extends CI_Controller
         'id_Stream_Tool' => $theidstreamtool, 
         'Resum' => $theresum);
 
-      $updatedr = $this->Doctor_model->update_doctor($iddoctor,$params);
+      $updatepa = $this->Patient_model->update_patient($idpatient,$params);
 
-      if($updatedr) {
+      if($updatepa) {
         $Result_Message = "-- Your Document Succesfully Updated --";
       }
       else {
@@ -402,7 +397,7 @@ class Patient extends CI_Controller
       $this->load->model('User_model');
 
       $userme = $this->session->userdata('iduser');
-      $data['doctor'] = $this->Doctor_model->get_user_doctor($userme);
+      $data['patient'] = $this->Patient_model->get_user_patient($userme);
       $data['nationalities'] = $this->Nationality_model->get_all_nationality();
       $data['specialities'] = $this->Specialist_model->get_all_specialist();
       $data['languages'] = $this->Language_model->get_all_language();
@@ -410,7 +405,7 @@ class Patient extends CI_Controller
       $data['stream'] = $this->StreamTool_model->get_all_streamtool();
       $data['mymessage'] = $Result_Message;
       $this->load->view('head');
-      $this->load->view('doctor/profile',$data);
+      $this->load->view('patient/profile',$data);
       $this->load->view('footer');
 
     }
