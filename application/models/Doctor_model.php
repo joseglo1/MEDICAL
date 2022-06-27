@@ -49,6 +49,13 @@ class Doctor_model extends CI_Model
         return $this->db->get('doctor')->result_array();
     }
 
+    function get_all_doctor_name()
+    {
+        $this->db->order_by('First_Name', 'asc');
+        $this->db->order_by('Last_Name', 'asc');
+        return $this->db->get('doctor')->result_array();
+    }
+
     function get_user_doctor($id_user)
     {
         $this->db->where('id_User',$id_user);

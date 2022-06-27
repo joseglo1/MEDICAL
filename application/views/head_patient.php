@@ -27,6 +27,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <?php
     echo link_tag("assets/plugins/dataTables/dataTables.bootstrap.css");
     ?>
+    <style>
+    .fa {
+        font-size: 25px;
+    }
+
+    .starorange  {
+        color: orange;
+    }
+    </style>
 
 </head>
 

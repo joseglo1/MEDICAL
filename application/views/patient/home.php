@@ -47,12 +47,12 @@
                 </div>
                 <!--end quick info section -->
             </div>
-
+            <?php //print_r($doctor); ?>
             <div class="panel panel-heading">
                 <div class="row">
                     <form name="SearhDr" action="" method="POST">
                     <div class="col-lg-3">
-                        <input class="form-control" name="NameDr" type="text" placeholder="Search by Dr Name">
+                        <input class="form-control" name="NameDr" type="search" placeholder="Search by Dr Name">
                     </div>
                     <div class="col-lg-3">
                         <select id="langs" name="idLanguage" class="form-control">
@@ -88,59 +88,73 @@
                     </div>
                     </form> 
                 </div>
-                <div class="row">
-                    <div class="col-lg-3">
-                        <h2>Card Image</h2>
-                        <p>Image at the top (card-img-top):</p>
-                        <div class="card" style="width:200px">
-                            <img class="card-img-top" src="<?php echo base_url()."images/"; ?>img_avatar2.png" alt="Card image" style="width:100%">
-                            <div class="card-body">
-                            <h4 class="card-title">John Doe</h4>
-                            <p class="card-text">Some example text some example text. John Doe is an architect and engineer</p>
-                            <a href="#" class="btn btn-primary">See Profile</a>
+
+                <!-- cards of Doctors -->
+                <div class='row'>
+                    <?php 
+                    foreach($doctor as $d) 
+                    {
+                    ?> 
+                
+                        <div class="col-lg-3">
+                            <h3><?php echo $d['First_Name'].' '.$d['Last_Name'];?></h3>
+                            <p>Image at the top (card-img-top):</p>
+                            <p>
+                                <?php 
+                                    /* $rating = 3.5;
+                                    while($rating>0) {
+                                        if($rating >0.5) {
+                                            echo "<span class='starorange fa fa-star'></span>";
+                                        }
+                                        else {
+                                            echo "<span class='fa fa-star-half'></span>";
+                                        }
+                                        $rating--;
+                                    }  */
+                                    $starsnro = 1;
+                                    $rating = 3.5;
+                                    while($starsnro<=5) {
+                                        $ratingf = $rating - $starsnro;
+                                        if($ratingf >= 1)
+                                        {
+                                            echo "<span class='starorange fa fa-star'></span>";
+                                        }
+                                        else
+                                        {
+                                            if($ratingf > 0) {
+                                                echo "<span class='starorange fa fa-star-half-o'></span>";
+                                            }
+                                            else {
+                                                echo "<span class='fa fa-star'></span>";
+                                            }
+                                        }
+                                        $starsnro++;
+                                    }
+                                   
+                                ?>
+                                 <span>Rate: <?php echo $rating;  ?></span>
+                            </p>
+
+                            <div class="card" style="width:200px">
+                                <img class="card-img-top" src="<?php echo base_url()."images/"; ?>img_avatar2.png" alt="Card image" style="width:100%">
+                                <div class="card-body">
+                                <h4 class="card-title"><?php echo $d['First_Name'].' '.$d['Last_Name'];?></h4>
+                                <p class="card-text text-align"><?php 
+                                    $resume = substr($d['Resum'],0,200);
+                                    echo $resume.' ...'; ?></p>
+                                <a href="#" class="btn btn-primary">Read More</a>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <h2>Card Image</h2>
-                        <p>Image at the top (card-img-top):</p>
-                        <div class="card" style="width:200px">
-                            <img class="card-img-top" src="<?php echo base_url()."images/"; ?>img_avatar2.png" alt="Card image" style="width:100%">
-                            <div class="card-body">
-                            <h4 class="card-title">John Doe</h4>
-                            <p class="card-text">Some example text some example text. John Doe is an architect and engineer</p>
-                            <a href="#" class="btn btn-primary">See Profile</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <h2>Card Image</h2>
-                        <p>Image at the top (card-img-top):</p>
-                        <div class="card" style="width:200px">
-                            <img class="card-img-top" src="<?php echo base_url()."images/"; ?>img_avatar2.png" alt="Card image" style="width:100%">
-                            <div class="card-body">
-                            <h4 class="card-title">John Doe</h4>
-                            <p class="card-text">Some example text some example text. John Doe is an architect and engineer</p>
-                            <a href="#" class="btn btn-primary">See Profile</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <h2>Card Image</h2>
-                        <p>Image at the top (card-img-top):</p>
-                        <div class="card" style="width:200px">
-                            <img class="card-img-top" src="<?php echo base_url()."images/"; ?>img_avatar2.png" alt="Card image" style="width:100%">
-                            <div class="card-body">
-                            <h4 class="card-title">John Doe</h4>
-                            <p class="card-text">Some example text some example text. John Doe is an architect and engineer</p>
-                            <a href="#" class="btn btn-primary">See Profile</a>
-                            </div>
-                        </div>
-                    </div>
+                
+                    <?php
+                    }
+                    ?>
                 </div>
             </div>
-            <br>
-
+            <div class="row">
+                <div class="col-lg-9"><p>&nbsp;</p></div>
+            </div>
             <div class="row">
                 <div class="col-lg-8">
 

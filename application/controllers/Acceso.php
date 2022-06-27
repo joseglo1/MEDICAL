@@ -66,15 +66,17 @@ class Acceso extends CI_Controller
           {
             // Enter Patient 
             $this->load->model('Patient_model');
+            $this->load->model('Doctor_model');
             $this->load->model('Specialist_model');
             $this->load->model('Language_model');
             $user_ide = $approve['id_User'];
             $patient = $this->Patient_model->get_patient_byuser($user_ide);
             $theidpatient = $patient;
-            $data['patient']   = $this->Patient_model->get_user_patient($user_ide);
-            $data['specialities'] = $this->Specialist_model->get_all_specialist();
-            $data['languages'] = $this->Language_model->get_all_language();
-            $data['mymessage'] = null;
+            $data['patient']        = $this->Patient_model->get_user_patient($user_ide);
+            $data['doctor']         = $this->Doctor_model->get_all_doctor_name();
+            $data['specialities']   = $this->Specialist_model->get_all_specialist();
+            $data['languages']      = $this->Language_model->get_all_language();
+            $data['mymessage']      = null;
 
             $this->load->view('head_patient');
             $this->load->view('patient/home',$data);
