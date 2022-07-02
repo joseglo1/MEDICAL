@@ -16,7 +16,7 @@ class Document_model extends CI_Model
      */
     function get_document($id_document)
     {
-        return $this->db->get_where('Document',array('id_Document'=>$id_document))->row_array();
+        return $this->db->get_where('document',array('id_Document'=>$id_document))->row_array();
     }
         
     /*
@@ -41,7 +41,7 @@ class Document_model extends CI_Model
      */
     function add_document($params)
     {
-        $this->db->insert('Document',$params);
+        $this->db->insert('document',$params);
         return $this->db->insert_id();
     }
     
@@ -51,7 +51,7 @@ class Document_model extends CI_Model
     function update_document($id_document,$params)
     {
         $this->db->where('id_Document',$id_document);
-        return $this->db->update('Document',$params);
+        return $this->db->update('document',$params);
     }
     
     /*
@@ -59,6 +59,6 @@ class Document_model extends CI_Model
      */
     function delete_document($id_document)
     {
-        return $this->db->delete('Document',array('id_Document'=>$id_document));
+        return $this->db->delete('document',array('id_Document'=>$id_document));
     }
 }

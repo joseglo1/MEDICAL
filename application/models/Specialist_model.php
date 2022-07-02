@@ -25,7 +25,7 @@ class Specialist_model extends CI_Model
     function get_all_specialist2()
     {
         $this->db->select('*');
-        $this->db->from('Specialist');
+        $this->db->from('specialist');
         $this->db->order_by("id_Specialist");
         return $this->db->get()->result_array();
 
@@ -33,7 +33,7 @@ class Specialist_model extends CI_Model
     function get_all_specialist()
     {
         $this->db->order_by('name', 'asc');
-        return $this->db->get('Specialist')->result_array();
+        return $this->db->get('specialist')->result_array();
     }
         
     /*
@@ -41,7 +41,7 @@ class Specialist_model extends CI_Model
      */
     function add_specialist($params)
     {
-        $this->db->insert('Specialist',$params);
+        $this->db->insert('specialist',$params);
         return $this->db->insert_id();
     }
     
@@ -51,7 +51,7 @@ class Specialist_model extends CI_Model
     function update_specialist($id_specialist,$params)
     {
         $this->db->where('id_Specialist',$id_specialist);
-        return $this->db->update('Specialist',$params);
+        return $this->db->update('specialist',$params);
     }
     
     /*
@@ -59,6 +59,6 @@ class Specialist_model extends CI_Model
      */
     function delete_specialist($id_specialist)
     {
-        return $this->db->delete('Specialist',array('id_Specialist'=>$id_specialist));
+        return $this->db->delete('specialist',array('id_Specialist'=>$id_specialist));
     }
 }

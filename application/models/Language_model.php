@@ -16,7 +16,7 @@ class Language_model extends CI_Model
      */
     function get_language($id_language)
     {
-        return $this->db->get_where('Language',array('id_Language'=>$id_language))->row_array();
+        return $this->db->get_where('language',array('id_Language'=>$id_language))->row_array();
     }
         
     /*
@@ -25,7 +25,7 @@ class Language_model extends CI_Model
     function get_all_language2()
     {
         $this->db->select('*');
-        $this->db->from('Language');
+        $this->db->from('language');
         $this->db->order_by("id_Language");
         return $this->db->get()->result_array();
 
@@ -33,7 +33,7 @@ class Language_model extends CI_Model
     function get_all_language()
     {
         $this->db->order_by('name', 'asc');
-        return $this->db->get('Language')->result_array();
+        return $this->db->get('language')->result_array();
     }
         
     /*
@@ -41,7 +41,7 @@ class Language_model extends CI_Model
      */
     function add_language($params)
     {
-        $this->db->insert('Language',$params);
+        $this->db->insert('language',$params);
         return $this->db->insert_id();
     }
     
@@ -51,7 +51,7 @@ class Language_model extends CI_Model
     function update_language($id_language,$params)
     {
         $this->db->where('id_Language',$id_language);
-        return $this->db->update('Language',$params);
+        return $this->db->update('language',$params);
     }
     
     /*
@@ -59,6 +59,6 @@ class Language_model extends CI_Model
      */
     function delete_language($id_language)
     {
-        return $this->db->delete('Language',array('id_Language'=>$id_language));
+        return $this->db->delete('language',array('id_Language'=>$id_language));
     }
 }

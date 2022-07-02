@@ -16,7 +16,7 @@ class Nationality_model extends CI_Model
      */
     function get_nationality($id_nationality)
     {
-        return $this->db->get_where('Nationality',array('id_Nationality'=>$id_nationality))->row_array();
+        return $this->db->get_where('nationality',array('id_Nationality'=>$id_nationality))->row_array();
     }
         
     /*
@@ -25,7 +25,7 @@ class Nationality_model extends CI_Model
     function get_all_nationality2()
     {
         $this->db->select('*');
-        $this->db->from('Nationality');
+        $this->db->from('nationality');
         $this->db->order_by("id_Nationality");
         return $this->db->get()->result_array();
 
@@ -33,7 +33,7 @@ class Nationality_model extends CI_Model
     function get_all_nationality()
     {
         $this->db->order_by('name', 'asc');
-        return $this->db->get('Nationality')->result_array();
+        return $this->db->get('nationality')->result_array();
     }
         
     /*
@@ -41,7 +41,7 @@ class Nationality_model extends CI_Model
      */
     function add_nationality($params)
     {
-        $this->db->insert('Nationality',$params);
+        $this->db->insert('nationality',$params);
         return $this->db->insert_id();
     }
     
@@ -51,7 +51,7 @@ class Nationality_model extends CI_Model
     function update_nationality($id_nationality,$params)
     {
         $this->db->where('id_Nationality',$id_nationality);
-        return $this->db->update('Nationality',$params);
+        return $this->db->update('nationality',$params);
     }
     
     /*
@@ -59,6 +59,6 @@ class Nationality_model extends CI_Model
      */
     function delete_nationality($id_nationality)
     {
-        return $this->db->delete('Nationality',array('id_Nationality'=>$id_nationality));
+        return $this->db->delete('nationality',array('id_Nationality'=>$id_nationality));
     }
 }

@@ -433,7 +433,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                 <label>Select your Specialists -</label>
                                             </div>
                                             <div class="col-md-12">
-                                                <select id="speciality" size="5" name="idSpecialist[]" class="form-select form-select-lg mb-3" aria-label="size 5 multiple select example" multiple required>
+                                                <select id="speciality" size="5" name="idSpecialist[]" class="form-select form-select-lg mb-3" aria-label="size 5 multiple select example" multiple>
                                                 <?php 
                                                 	$primero=0;
                                                 	foreach($specialities as $s) {
@@ -460,7 +460,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                 <label>Language</label>
                                             </div>  
                                             <div class="col-md-12">
-                                                <select id="lang" name="idLanguage[]" class="form-select form-select-lg mb-3" aria-label="size 5 multiple select example" multiple required>
+                                                <select id="lang" name="idLanguage[]" class="form-select form-select-lg mb-3" aria-label="size 5 multiple select example" multiple>
                                                 <?php
                                                  $primero=0;
                                                  foreach($languages as $l) {
@@ -522,7 +522,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 	<p>&nbsp;</p>
                                 	<div class="form-group">
                                         <div class="col-md-6">
-                                            <input class="form-control btn-primary" type="submit" name="send" value="SEND">
+                                            <input id="newregister" class="form-control btn-primary" type="submit" name="send" value="SEND">
                                         </div>
                                         <div class="col-md-6">
                                         	<input class="form-control btn-danger" type="reset" name="CANCEL" value="CANCEL">
@@ -539,6 +539,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </div> <!-- FIN DEL ROW -->
         </form>
         <?php //echo form_close(); ?>
+
+        
+
         <script type="text/javascript">
             function verificar()
             {
@@ -567,7 +570,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             $('#dataTables-example').dataTable();
             $('#speciality').multiSelect();
             $('#lang').multiSelect();
-            $('#streamtool').multiSelect();  
+            $('#streamtool').multiSelect();
         });
     </script>
 </body>

@@ -233,8 +233,8 @@ class Doctor extends CI_Controller
 
         } // end insert user
 
-        $data['misdatos'] = $datadr;
-        $this->load->view('doctor/prueba',$data);
+        $tit['errorlogin'] = "Register Succesfully";
+        $this->load->view('acceso/login',$tit);
 
       }
       else

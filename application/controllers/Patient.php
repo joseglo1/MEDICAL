@@ -58,6 +58,7 @@ class Patient extends CI_Controller
        $this->load->view('patient/profile',$data);
        $this->load->view('footer');
     }
+    
     function home()
     {
        $this->load->model('Nationality_model');
