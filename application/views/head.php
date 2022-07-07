@@ -30,7 +30,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 </head>
 
-<body>
+
+<body class="mifondo">
     <!--  wrapper -->
     <div id="wrapper">
         <!-- navbar top -->
@@ -338,9 +339,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </div>
                         <!--end user image section-->
                     </li>
-                    <li class="sidebar-search">
+
+                    <!-- <li class="sidebar-search"> -->
                         <!-- search section-->
-                        <div class="input-group custom-search-form">
+                        <!-- <div class="input-group custom-search-form"> -->
                             <!--
                             <input type="text" class="form-control" placeholder="Search...">
                             <span class="input-group-btn">
@@ -349,9 +351,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 </button>
                             </span>
                             -->
-                        </div>
+                        <!-- </div> -->
                         <!--end search section-->
-                    </li>
+                    <!-- </li>  -->
                     <?php 
                         $meactive = $this->session->userdata('active');
                     ?>

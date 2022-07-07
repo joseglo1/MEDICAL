@@ -61,22 +61,105 @@ class Patient extends CI_Controller
     
     function home()
     {
-       $this->load->model('Nationality_model');
-       $this->load->model('Specialist_model');
-       $this->load->model('Language_model');
-       $this->load->model('MaritalStatus_model');
-       $this->load->model('StreamTool_model');
-       $this->load->model('User_model');
+      $this->load->model('Patient_model');
+      $this->load->model('Doctor_model');
+      $this->load->model('Specialist_model');
+      $this->load->model('Language_model');
+      $this->load->model('StreamTool_model');
+      $user_ide = $this->session->userdata('iduser');
+      $patient = $this->Patient_model->get_patient_byuser($user_ide);
+      $theidpatient = $patient;
+      $data['patient']        = $this->Patient_model->get_user_patient($user_ide);
+      $data['doctor']         = $this->Doctor_model->get_all_doctor_name();
+      $data['specialities']   = $this->Specialist_model->get_all_specialist();
+      $data['languages']      = $this->Language_model->get_all_language();
+      $data['streamtool']     = $this->StreamTool_model->get_all_streamtool();
+      $data['mymessage']      = null;
 
-       $data['nationalities'] = $this->Nationality_model->get_all_nationality();
-       $data['specialities'] = $this->Specialist_model->get_all_specialist();
-       $data['languages'] = $this->Language_model->get_all_language();
-       $data['marital'] = $this->MaritalStatus_model->get_all_maritalstatus2();
-       $data['stream'] = $this->StreamTool_model->get_all_streamtool();
-       $data['mymessage'] = null;
-       $this->load->view('head');
-       $this->load->view('patient/home',$data);
-       $this->load->view('footer');
+      $this->load->view('head_patient');
+      $this->load->view('patient/home',$data);
+      $this->load->view('footer');
+    }
+
+    function details($idDoctor)
+    {
+      $this->load->model('Patient_model');
+      $this->load->model('Doctor_model');
+      $this->load->model('Specialist_model');
+      $this->load->model('Language_model');
+      $this->load->model('Nationality_model');
+      $this->load->model('StreamTool_model');
+      $this->load->model('Doctorservice_model');
+      $user_ide = $this->session->userdata('iduser');
+      $patient = $this->Patient_model->get_patient_byuser($user_ide);
+      $theidpatient = $patient;
+      $data['patient']        = $this->Patient_model->get_user_patient($user_ide);
+      $data['doctor']         = $this->Doctor_model->get_doctor($idDoctor);
+      $data['doctorserviceh'] = $this->Doctorservice_model->get_doctor_service_hours($idDoctor);
+      $data['specialities']   = $this->Specialist_model->get_all_specialist();
+      $data['languages']      = $this->Language_model->get_all_language();
+      $data['nationality']    = $this->Nationality_model->get_all_nationality2();
+      $data['streamtool']     = $this->StreamTool_model->get_all_streamtool();
+      $data['mymessage']      = null;
+
+      $this->load->view('head_patient');
+      $this->load->view('patient/details_patient',$data);
+      $this->load->view('footer');
+
+    }
+
+    function appointment($idDoctor)
+    {
+      $this->load->model('Patient_model');
+      $this->load->model('Doctor_model');
+      $this->load->model('Specialist_model');
+      $this->load->model('Language_model');
+      $this->load->model('Nationality_model');
+      $this->load->model('StreamTool_model');
+      $this->load->model('Doctorservice_model');
+      $this->load->library('calendar');
+      $user_ide = $this->session->userdata('iduser');
+      $patient = $this->Patient_model->get_patient_byuser($user_ide);
+      $theidpatient = $patient;
+      $data['patient']        = $this->Patient_model->get_user_patient($user_ide);
+      $data['doctor']         = $this->Doctor_model->get_doctor($idDoctor);
+      $data['doctorserviceh'] = $this->Doctorservice_model->get_doctor_service_hours($idDoctor);
+      $data['specialities']   = $this->Specialist_model->get_all_specialist();
+      $data['languages']      = $this->Language_model->get_all_language();
+      $data['nationality']    = $this->Nationality_model->get_all_nationality2();
+      $data['streamtool']     = $this->StreamTool_model->get_all_streamtool();
+      $data['mymessage']      = null;
+
+      $this->load->view('head_patient');
+      $this->load->view('patient/appointment_patient',$data);
+      $this->load->view('footer');
+
+    }
+
+    function reserv($idDoctor,$idPatient,$date_appointment)
+    {
+      $this->load->model('Patient_model');
+      $this->load->model('Doctor_model');
+      $this->load->model('Specialist_model');
+      $this->load->model('Language_model');
+      $this->load->model('Nationality_model');
+      $this->load->model('StreamTool_model');
+      $this->load->model('Doctorservice_model');
+      $this->load->library('calendar');
+      $data['patient']        = $this->Patient_model->get_user_patient($idPatient);
+      $data['doctor']         = $this->Doctor_model->get_doctor($idDoctor);
+      $data['doctorservice']  = $this->Doctorservice_model->get_doctor_service($idDoctor);
+      $data['specialities']   = $this->Specialist_model->get_all_specialist();
+      $data['languages']      = $this->Language_model->get_all_language();
+      $data['nationality']    = $this->Nationality_model->get_all_nationality2();
+      $data['streamtool']     = $this->StreamTool_model->get_all_streamtool();
+      $data['dateappointment'] = $date_appointment;
+      $data['mymessage']      = null;
+
+      $this->load->view('head_patient');
+      $this->load->view('patient/reserve_appointment',$data);
+      $this->load->view('footer');
+
     }
 
     function credentials()

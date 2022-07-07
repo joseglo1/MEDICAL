@@ -35,6 +35,63 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     .starorange  {
         color: orange;
     }
+    
+	#calendar {
+
+			font-family:Arial;
+
+			font-size:12px;
+
+	}
+
+	#calendar caption {
+
+			text-align:left;
+
+			padding:5px 10px;
+
+			background-color:#003366;
+
+			color:#fff;
+
+			font-weight:bold;
+
+	}
+
+	#calendar th {
+
+			background-color:#006699;
+
+			color:#fff;
+
+			width:40px;
+
+	}
+
+	#calendar td {
+
+			text-align:right;
+
+			padding:2px 5px;
+
+			background-color:silver;
+
+	}
+
+	#calendar .hoy {
+
+		background-color:blue;
+        color: #ffffff;
+
+	}
+
+    #calendar2 .hoy {
+
+    background-color:blue;
+    color: #ffffff;
+
+    }
+   
     </style>
 
 </head>
@@ -393,6 +450,3 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <!-- end sidebar-collapse -->
         </nav>
         <!-- end navbar side -->
-        
-
-   
