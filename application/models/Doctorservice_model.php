@@ -28,13 +28,13 @@ class Doctorservice_model extends CI_Model
     }
     function get_doctor_service($id_doctor)
     {
-        $consulta = "SELECT * FROM doctor_service WHERE id_Doctor = ".$id_doctor." ORDER BY Day_Week, initial_Hour;";
+        $consulta = "SELECT DISTINCT Day_Week FROM doctor_service WHERE id_Doctor = ".$id_doctor." ORDER BY Day_Week, initial_Hour;";
         return $this->db->query($consulta)->result_array();
         
     }
-    function get_doctor_service_hours($id_doctor)
+    function get_doctor_service_hours($id_doctor,$dayweek)
     {
-        $consulta = "SELECT DISTINCT Day_Week FROM doctor_service WHERE id_Doctor = ".$id_doctor." ORDER BY Day_Week, initial_Hour;";
+        $consulta = "SELECT * FROM doctor_service WHERE id_Doctor = ".$id_doctor." and Day_Week = $dayweek ORDER BY initial_Hour;";
         return $this->db->query($consulta)->result_array();
         
     }

@@ -95,7 +95,7 @@ class Patient extends CI_Controller
       $theidpatient = $patient;
       $data['patient']        = $this->Patient_model->get_user_patient($user_ide);
       $data['doctor']         = $this->Doctor_model->get_doctor($idDoctor);
-      $data['doctorserviceh'] = $this->Doctorservice_model->get_doctor_service_hours($idDoctor);
+      $data['doctorserviceh'] = $this->Doctorservice_model->get_doctor_service($idDoctor);
       $data['specialities']   = $this->Specialist_model->get_all_specialist();
       $data['languages']      = $this->Language_model->get_all_language();
       $data['nationality']    = $this->Nationality_model->get_all_nationality2();
@@ -123,7 +123,7 @@ class Patient extends CI_Controller
       $theidpatient = $patient;
       $data['patient']        = $this->Patient_model->get_user_patient($user_ide);
       $data['doctor']         = $this->Doctor_model->get_doctor($idDoctor);
-      $data['doctorserviceh'] = $this->Doctorservice_model->get_doctor_service_hours($idDoctor);
+      $data['doctorserviceh'] = $this->Doctorservice_model->get_doctor_service($idDoctor);
       $data['specialities']   = $this->Specialist_model->get_all_specialist();
       $data['languages']      = $this->Language_model->get_all_language();
       $data['nationality']    = $this->Nationality_model->get_all_nationality2();
@@ -145,15 +145,19 @@ class Patient extends CI_Controller
       $this->load->model('Nationality_model');
       $this->load->model('StreamTool_model');
       $this->load->model('Doctorservice_model');
+      $this->load->model('Booking_model');
       $this->load->library('calendar');
-      $data['patient']        = $this->Patient_model->get_user_patient($idPatient);
+      $number_day_week = date('N', strtotime($date_appointment)) + 1 ;
+      //echo $number_day_week;
+      $data['patient']        = $this->Patient_model->get_patient($idPatient);
       $data['doctor']         = $this->Doctor_model->get_doctor($idDoctor);
-      $data['doctorservice']  = $this->Doctorservice_model->get_doctor_service($idDoctor);
+      $data['doctorservice']  = $this->Doctorservice_model->get_doctor_service_hours($idDoctor,$number_day_week);
       $data['specialities']   = $this->Specialist_model->get_all_specialist();
       $data['languages']      = $this->Language_model->get_all_language();
       $data['nationality']    = $this->Nationality_model->get_all_nationality2();
       $data['streamtool']     = $this->StreamTool_model->get_all_streamtool();
       $data['dateappointment'] = $date_appointment;
+      $data['dayofreserve']    = $number_day_week;
       $data['mymessage']      = null;
 
       $this->load->view('head_patient');

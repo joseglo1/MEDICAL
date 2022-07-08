@@ -196,7 +196,7 @@
 ?>
 
 <!--- Table of Available Doctors  -->
-<form name="booking" method="post" action="<?php base_url();?>/booking/add">
+<form name="booking" method="post" action="<?php echo base_url();?>/booking/add">
 <div class="row">
     <div class="col-lg-12 panel panel-default">
         <div class="col-lg-12 modal-header">
@@ -212,6 +212,7 @@
             </div>
         </div>
         <input name="iddoctor" type="hidden" value="<?php echo $doctor['id_Doctor']?>">
+        <input name="idpatient" type="hidden" value="<?php echo $patient['id_Patient']?>">
         <div class="col-lg-7 modal-header style="margin-left: 50px;margin-right: 50px">  
                 <span><strong>Specialities: </strong></span><br>
                 <?php
@@ -326,14 +327,27 @@
                         </div>
                         -->
                         <?php
+                            $firstitem = 0;
                             foreach($doctorservice as $ds) {
                                 if($ds['Status']==0) {
-                        ?>
-                                <div class='form-check'>
-                                <input class="form-check-input" type="radio" name="iddoctorservice" id="doctorservice" value="<?php echo $ds['id_Doctor_Service']; ?>">
-                                <label class="form-check-label" for="gridRadios3"><?php echo $ds['initial_Hour']; ?>&nbsp;&nbsp;<font color="green">Available</font></label>
-                                </div>
-                        <?php
+                                    if($firstitem==0) {
+                                        $firstitem = 1;
+                                    ?>
+                                        <div class='form-check'>
+                                        <input class="form-check-input" type="radio" name="iddoctorservice" id="doctorservice" value="<?php echo $ds['id_Doctor_Service']; ?>" checked>
+                                        <label class="form-check-label" for="gridRadios3"><?php echo $ds['initial_Hour']; ?>&nbsp;&nbsp;<font color="green">Available</font></label>
+                                        </div>
+                                    <?php
+                                    }
+                                    else 
+                                    {
+                                ?>
+                                    <div class='form-check'>
+                                    <input class="form-check-input" type="radio" name="iddoctorservice" id="doctorservice" value="<?php echo $ds['id_Doctor_Service']; ?>">
+                                    <label class="form-check-label" for="gridRadios3"><?php echo $ds['initial_Hour']; ?>&nbsp;&nbsp;<font color="green">Available</font></label>
+                                    </div>
+                                <?php
+                                    }
                                 }
                                 else {
                         ?>
@@ -353,8 +367,11 @@
                         <a href="<?php echo base_url();?>booking/add">
                             <button type="submit" class="btn btn-default" data-dismiss="modal">Reserve Now your Appointment with <?php echo $doctor['First_Name']." ".$doctor['Last_Name'];?></button>
                         </a>
+            </form>
+                        <a href="<?php echo base_url();?>patient/appointment/<?php echo $doctor['id_Doctor'];?>">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Go Back</button>
+                        </a>
                     </div>
-                </div>
             </div>
         </div>  
     </div>
@@ -375,5 +392,4 @@
     </div>
 
 </div>
-</form>
 <!-- end page-wrapper -->
