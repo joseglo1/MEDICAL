@@ -6,175 +6,70 @@
  
 class Booking extends CI_Controller
 {
-    function __construct()
-    {
-        parent::__construct();
-        $this->load->model('Booking_model');
-    } 
+  function __construct()
+  {
+      parent::__construct();
+      $this->load->model('Booking_model');
+  } 
 
-    function add()
-    {
-      
-      if(isset($_POST) && count($_POST) > 0)     
-      {
-
-        $iddoctor         = $this->input->post('iddoctor');
-        $idpatient        = $this->input->post('idpatient');
-        $datebooking      = $this->input->post('dateappointment');
-        $iddoctorservice  = $this->input->post('iddoctorservice');
-
-        echo "Doctor ".$iddoctor."<br>";
-        echo "Patient ".$idpatient."<br>";
-        echo "Booking ".$datebooking."<br>";
-        echo "Doctor Serv  ".$iddoctorservice."<br>";
-        
-      
-        /*
-        $databooking = array(
-            'id_Doctor' => $iddoctor,
-            'id_Patient' => $idpatient, 
-            'id_Doctor_Service' => $iddoctorservice,
-            'Date_Booking' => $datebooking);
-
-        $strbooking = $this->db->insert_string('booking', $databooking);
-        $insert_dr  = $this->db->query($strbooking);
-        //$theiddr    = $this->db->insert_id();
-
-        /* SEND EMAIL */
-        /*
-        $to = $theemail;
-        $subject = "Welcome, Register Succesfully !";
-          $txt = "We received your application #".$theiddr." You completed the first step. The next step is login and upload your credentials. When you completed this requirement we will review your application within 3 working days. In case of aprovement we will send you an email. Thank you.";
-          $headers = "MIME-Version: 1.0" . "\r\n";
-          $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-          // More headers
-          $headers .= 'From: <admin@domain.com>' . "\r\n";
-          $enviado = mail($to,$subject,$txt,$headers);
-
-
-        $tit['errorlogin'] = "Register Succesfully";
-        $this->load->view('acceso/login',$tit);
-
-        $this->load->model('Nationality_model');
-        $this->load->model('Specialist_model');
-        $this->load->model('Language_model');
-        $this->load->model('MaritalStatus_model');
-        $this->load->model('StreamTool_model');
-
-        $data['nationalities'] = $this->Nationality_model->get_all_nationality();
-        $data['specialities'] = $this->Specialist_model->get_all_specialist();
-        $data['languages'] = $this->Language_model->get_all_language();
-        $data['marital'] = $this->MaritalStatus_model->get_all_maritalstatus2();
-        $data['stream'] = $this->StreamTool_model->get_all_streamtool();
-        if($error_form==1) {
-          $data['mymessage'] = "Oops the passwords no match ";
-        }
-        if($error_form==2) {
-          $data['mymessage'] = "Oops email exists already ";
-        }
-        $this->load->view('head');
-        $this->load->view('doctor/content_register_dr',$data);
-        $this->load->view('footer');
-        */
-      }
-    }
-
+  function add()
+  {
     
-
-    function update()
+    if(isset($_POST) && count($_POST) > 0)     
     {
-      $myerror = true;
-      $Result_Message = null;
 
-      $this->load->model('Doctor_model');
+      $iddoctor         = $this->input->post('iddoctor');
+      $idpatient        = $this->input->post('idpatient');
+      $datebooking      = $this->input->post('dateappointment');
+      $iddoctorservice  = $this->input->post('iddoctorservice');
 
-      $iddoctor               = $this->input->post('iddoctor');
-      $thename                = $this->input->post('NameDr');
-      $themiddlename          = $this->input->post('MiddleName');
-      $thelastname            = $this->input->post('LastName');
-      $thefullname            = $thename." ".$themiddlename." ".$thelastname;
-      $thegender              = $this->input->post('Gender');
-      $theidMaritalStatus     = $this->input->post('idMaritalStatus');
-      $theidnationality       = $this->input->post('idNationality');
-      $thedatebirth           = $this->input->post('DateBirth');
-      $thephonenumber         = $this->input->post('PhoneNumber');
-      $theidspecialist        = array();
-      $theidspecialist        = $this->input->post('idSpecialist');
-      $theexperienceyears     = $this->input->post('ExperienceYears');
-      $theidlanguage          = array();
-      $theidlanguage          = $this->input->post('idLanguage');
-      $theidstreamtool        = $this->input->post('idStreamTool');
-      $theresum                = $this->input->post('Resum');
-      /* Recording Especialist and Languages
-        to a String Format Delimited by |
+      $databooking = array(
+          'id_Doctor' => $iddoctor,
+          'id_Patient' => $idpatient, 
+          'id_Doctor_Service' => $iddoctorservice,
+          'Date_Booking' => $datebooking);
+
+      //$strbooking = $this->db->insert_string('booking', $databooking);
+      //$insert_dr  = $this->db->query($strbooking);
+
+      //$theiddr    = $this->db->insert_id();
+
+      /* SEND EMAIL */
+      /*
+      $to = $theemail;
+      $subject = "Welcome, Register Succesfully !";
+        $txt = "We received your application #".$theiddr." You completed the first step. The next step is login and upload your credentials. When you completed this requirement we will review your application within 3 working days. In case of aprovement we will send you an email. Thank you.";
+        $headers = "MIME-Version: 1.0" . "\r\n";
+        $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+        // More headers
+        $headers .= 'From: <admin@domain.com>' . "\r\n";
+        $enviado = mail($to,$subject,$txt,$headers);
+
       */
-      $StrEspecialist ="";
-      $first=0;
-      foreach($theidspecialist as $esp) {
-        if($first==0) {
-          $first=1;
-          $StrEspecialist = $esp;
-        }
-        else {
-          $StrEspecialist .= "|".$esp;
-        }
-      }
-        
-      $StrLanguage ="";
-      $first=0;
-      foreach($theidlanguage as $lan) {
-        if($first==0) {
-          $first=1;
-          $StrLanguage = $lan;
-        }
-        else {
-           $StrLanguage .= "|".$lan;
-        }
-      }
-        
-      $params = array(
-        'First_Name' => $thename, 
-        'Middle_Name' => $themiddlename, 
-        'Last_Name' => $thelastname,
-        'Gender' => $thegender,
-        'id_Marital_Status' => $theidMaritalStatus,
-        'id_Nationality' => $theidnationality,
-        'Date_Birth' => $thedatebirth,
-        'Phone_Number' => $thephonenumber,
-        'id_Specialist' => $StrEspecialist,
-        'Experience_Years' => $theexperienceyears,
-        'id_Language' => $StrLanguage,
-        'id_Stream_Tool' => $theidstreamtool, 
-        'Resum' => $theresum);
 
-      $updatedr = $this->Doctor_model->update_doctor($iddoctor,$params);
 
-      if($updatedr) {
-        $Result_Message = "-- Your Document Succesfully Updated --";
-      }
-      else {
-         $Result_Message = "-- Update record not succesfull --";
-      }
-      
-      $this->load->model('Nationality_model');
+      $this->load->model('Patient_model');
+      $this->load->model('Doctor_model');
       $this->load->model('Specialist_model');
       $this->load->model('Language_model');
-      $this->load->model('MaritalStatus_model');
+      $this->load->model('Nationality_model');
       $this->load->model('StreamTool_model');
-      $this->load->model('User_model');
+      $this->load->model('Doctorservice_model');
+      $this->load->model('Booking_model');
+      $data['patient']        = $this->Patient_model->get_patient($idpatient);
+      $data['booking']        = $this->Booking_model->get_booking($idpatient);
+      $data['doctor']         = $this->Doctor_model->get_doctor($iddoctor);
+      $data['specialities']   = $this->Specialist_model->get_all_specialist();
+      $data['languages']      = $this->Language_model->get_all_language();
+      $data['nationality']    = $this->Nationality_model->get_all_nationality2();
+      $data['streamtool']     = $this->StreamTool_model->get_all_streamtool();
+      $data['dateappointment'] = $datebooking;
+      $data['mymessage']      = null;
 
-      $userme = $this->session->userdata('iduser');
-      $data['doctor'] = $this->Doctor_model->get_user_doctor($userme);
-      $data['nationalities'] = $this->Nationality_model->get_all_nationality();
-      $data['specialities'] = $this->Specialist_model->get_all_specialist();
-      $data['languages'] = $this->Language_model->get_all_language();
-      $data['marital'] = $this->MaritalStatus_model->get_all_maritalstatus2();
-      $data['stream'] = $this->StreamTool_model->get_all_streamtool();
-      $data['mymessage'] = $Result_Message;
-      $this->load->view('head');
-      $this->load->view('doctor/profile',$data);
+      $this->load->view('head_patient');
+      $this->load->view('patient/patient_reservations',$data);
       $this->load->view('footer');
-
+        
     }
-    
+  }
 }

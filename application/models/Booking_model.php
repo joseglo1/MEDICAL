@@ -14,9 +14,13 @@ class Booking_model extends CI_Model
     /*
      * Get booking by id_Booking
      */
-    function get_booking($id_booking)
+    function get_booking($id_patient)
     {
-        return $this->db->get_where('booking',array('id_Booking'=>$id_booking))->row_array();
+        $this->db->select('*');
+        $this->db->from('booking');
+        $this->db->where('id_Patient',$id_patient);
+        $this->db->order_by("Date_Booking");
+        return $this->db->get()->result_array();
     }
     
     
