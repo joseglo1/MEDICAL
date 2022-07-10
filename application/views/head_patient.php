@@ -116,26 +116,52 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <!-- end navbar-header -->
             <!-- navbar-top-links -->
             <ul class="nav navbar-top-links navbar-right">
-                <!-- main dropdown mail -->
-                <!--
+                
+                <!-- Notificaciones -->
+                <?php
+                $nronotifications = 0;
+                $mynot= "SELECT count(note) as notes FROM notification 
+                            WHERE id_User = ".$this->session->userdata('iduser')." AND status=0;";
+                $queryNote = $this->db->query($mynot);
+                if ($queryNote->num_rows() > 0)
+                {
+                    $row = $queryNote->row();
+                    $nronotifications = $row->notes;
+                }
+                if($nronotifications > 0) {
+                ?>
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <span class="top-label label label-danger">3</span><i class="fa fa-envelope fa-3x"></i>
+                        <span class="top-label label label-danger"><?php echo $nronotifications ?></span><i class="fa fa-envelope fa-3x"></i>
                     </a>
                     
                     <ul class="dropdown-menu dropdown-messages">
+                        <?php
+                        $dinot= "SELECT * FROM notification WHERE id_User = ".$this->session->userdata('iduser')." 
+                                AND status = 0;";
+                        $queryListNotes = $this->db->query($dinot);
+                        $listnotes = $queryListNotes->result_array();
+                        //print_r($listnotes);
+                        foreach($listnotes as $nt) {
+                            $thedate = substr($nt['datenot'],0,10);
+                        ?>
+
                         <li>
                             <a href="#">
                                 <div>
-                                    <strong><span class=" label label-danger">Andrew Smith</span></strong>
+                                    <strong><span class=" label label-success">You Have a New Message</span></strong>
                                     <span class="pull-right text-muted">
-                                        <em>Yesterday</em>
+                                        <em><?php echo $thedate;?></em>
                                     </span>
                                 </div>
-                                <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...</div>
+                                <div><?php echo $nt['note'];?></div>
                             </a>
                         </li>
                         <li class="divider"></li>
+                        <?php
+                        }
+                        ?>
+                        <!--
                         <li>
                             <a href="#">
                                 <div>
@@ -166,10 +192,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <i class="fa fa-angle-right"></i>
                             </a>
                         </li>
+                        -->
                     </ul>
                    
                 </li>
-                -->
+                <?php
+                }
+                ?>
                 <!--
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
@@ -428,21 +457,30 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                     <?php
                     $isactive = $this->session->userdata('active');
-                    if($this->session->userdata('active')) { 
-                        if($isactive >= 0) { ?> 
+                    //if($this->session->userdata('active')) { 
+                        //if($isactive >= 0) { ?> 
                             <li>
-                                <a href="<?php echo base_url().'patient/credentials' ?>"><i class="fa fa-flask fa-fw"></i>Credentials</a>
+                                <a href="<?php echo base_url().'patient/documents' ?>"><i class="fa fa-flask fa-fw"></i>Documents</a>
                             </li>
                         <?php 
-                        } 
-                        echo "<!-- <li class='selected'> -->";
-                        if($isactive >= 1) { ?> 
+                        //} 
+                        //echo "<!-- <li class='selected'> -->";
+                        //if($isactive >= 1) { ?> 
                             <li>
-                            <a href="<?php echo base_url().'doctorservice/index' ?>"><i class="fa fa-table fa-fw"></i>Schedule</a>
-                        </li>
+                            <a href="<?php echo base_url().'doctorservice/index' ?>"><i class="fa fa-table fa-fw"></i>Doctors</a>
+                            </li>
+                            <li>
+                            <a href="<?php echo base_url().'doctorservice/index' ?>"><i class="fa fa-table fa-fw"></i>Appointments</a>
+                            </li>
+                            <li>
+                            <a href="<?php echo base_url().'doctorservice/index' ?>"><i class="fa fa-table fa-fw"></i>Set Payment Method</a>
+                            </li>
+                            <li>
+                            <a href="<?php echo base_url().'doctorservice/index' ?>"><i class="fa fa-table fa-fw"></i>History</a>
+                            </li>
                         <?php 
-                        }
-                    } 
+                        //
+                    //} 
                         ?>
                 </ul>
                 <!-- end side-menu -->

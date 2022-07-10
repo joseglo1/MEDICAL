@@ -40,21 +40,17 @@ class Patient extends CI_Controller
     {
        $this->load->model('Patient_model');
        $this->load->model('Nationality_model');
-       $this->load->model('Specialist_model');
        $this->load->model('Language_model');
        $this->load->model('MaritalStatus_model');
-       $this->load->model('StreamTool_model');
        $this->load->model('User_model');
 
        $userme = $this->session->userdata('iduser');
-       $data['doctor'] = $this->Patient_model->get_user_patient($userme);
+       $data['patient'] = $this->Patient_model->get_user_patient($userme);
        $data['nationalities'] = $this->Nationality_model->get_all_nationality();
-       $data['specialities'] = $this->Specialist_model->get_all_specialist();
        $data['languages'] = $this->Language_model->get_all_language();
        $data['marital'] = $this->MaritalStatus_model->get_all_maritalstatus2();
-       $data['stream'] = $this->StreamTool_model->get_all_streamtool();
        $data['mymessage'] = null;
-       $this->load->view('head');
+       $this->load->view('head_patient');
        $this->load->view('patient/profile',$data);
        $this->load->view('footer');
     }
@@ -383,21 +379,17 @@ class Patient extends CI_Controller
 
       
       $this->load->model('Nationality_model');
-      $this->load->model('Specialist_model');
       $this->load->model('Language_model');
       $this->load->model('MaritalStatus_model');
-      $this->load->model('StreamTool_model');
       $this->load->model('User_model');
 
       $userme = $this->session->userdata('iduser');
-      $data['doctor'] = $this->Doctor_model->get_user_doctor($userme);
+      $data['patient'] = $this->Patient_model->get_user_patient($userme);
       $data['nationalities'] = $this->Nationality_model->get_all_nationality();
-      $data['specialities'] = $this->Specialist_model->get_all_specialist();
       $data['languages'] = $this->Language_model->get_all_language();
       $data['marital'] = $this->MaritalStatus_model->get_all_maritalstatus2();
-      $data['stream'] = $this->StreamTool_model->get_all_streamtool();
       $data['mymessage'] = $Result_Message;
-      $this->load->view('head');
+      $this->load->view('head_patient');
       $this->load->view('patient/profile',$data);
       $this->load->view('footer');
     }
