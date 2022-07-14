@@ -1,3 +1,4 @@
+/* 
 *, *:before, *:after {
     box-sizing: border-box;
 }
@@ -53,7 +54,7 @@ body {
     line-height: 1.4;
     padding: 2em;
 }
-
+*/
 .demo-example {
     margin-bottom: 2em;
 }

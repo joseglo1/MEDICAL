@@ -72,4 +72,89 @@ class Booking extends CI_Controller
         
     }
   }
+
+  function doctors_booking()
+  {
+      $this->load->model('Patient_model');
+      $this->load->model('Doctor_model');
+      $this->load->model('Booking_model');
+      $userme                 = $this->session->userdata('iduser');
+      $iddr                   = $this->Doctor_model->get_doctor_byuser($userme);
+      $data['doctor']         = $this->Doctor_model->get_doctor($iddr);
+      $data['booking']        = $this->Booking_model->get_doctors_booking($iddr);
+      $data['mymessage']      = null;
+
+      $this->load->view('head');
+      $this->load->view('booking/content_booking_dr',$data);
+      $this->load->view('footer');
+        
+  }
+  function booking_confirmation($idbooking)
+  {
+      $this->load->model('Patient_model');
+      $this->load->model('Doctor_model');
+      $this->load->model('Booking_model');
+      $this->load->model('StreamTool_model');
+      $userme                 = $this->session->userdata('iduser');
+      $iddr                   = $this->Doctor_model->get_doctor_byuser($userme);
+      $data['doctor']         = $this->Doctor_model->get_doctor($iddr);
+      $data['booking']        = $this->Booking_model->get_doctors_booking($iddr);
+      $data['streamtool']     = $this->StreamTool_model->get_all_streamtool();
+      $data['mymessage']      = null;
+
+      $this->load->view('head');
+      $this->load->view('booking/confirmation_booking',$data);
+      $this->load->view('footer');
+        
+  }
+  function confirm($idbooking)
+  {
+    /*
+      This Function record the Booking Confirmed (Status = 2)
+      assign a link and medium of the meeting
+    */
+    $this->load->model('Patient_model');
+    $this->load->model('Doctor_model');
+    $this->load->model('Booking_model');
+    $this->load->model('StreamTool_model');
+
+    $streamtool             = $this->input->post('Stream_Tool');
+    $streamlink             = $this->input->post('Stream_Link');
+    $param                  = array(
+      'id_Stream_Tool'      => $streamtool,
+      'Link_Stream'         => $streamlink,
+      'id_Status_Meeting'   => 2
+    );
+
+    
+    $resultado              = $this->Booking_model->confirm_booking($idbooking,$param);
+    
+    $userme                 = $this->session->userdata('iduser');
+    $iddr                   = $this->Doctor_model->get_doctor_byuser($userme);
+    $data['doctor']         = $this->Doctor_model->get_doctor($iddr);
+    $data['booking']        = $this->Booking_model->get_doctors_booking($iddr);
+    $data['streamtool']     = $this->StreamTool_model->get_all_streamtool();
+    $data['mymessage']      = "Confirmation a Appointment Successfully";
+    $this->load->view('head');
+    $this->load->view('booking/content_booking_dr',$data);
+    $this->load->view('footer');
+        
+  }
+  function booking_cancelation($idbooking)
+  {
+    $this->load->model('Patient_model');
+    $this->load->model('Doctor_model');
+    $this->load->model('Booking_model');
+    $result                 = $this->Booking_model->cancel_booking($idbooking);
+    $userme                 = $this->session->userdata('iduser');
+    $iddr                   = $this->Doctor_model->get_doctor_byuser($userme);
+    $data['doctor']         = $this->Doctor_model->get_doctor($iddr);
+    $data['booking']        = $this->Booking_model->get_doctors_booking($iddr);
+    $data['mymessage']      = null;
+
+    $this->load->view('head');
+    $this->load->view('booking/content_booking_dr',$data);
+    $this->load->view('footer');
+        
+  }
 }

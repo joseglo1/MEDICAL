@@ -114,8 +114,9 @@
             <div class="col-lg-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                         <h3>Documents Attach</h3>
+                         <h3>Doctor Available Schedule</h3>
                     </div>
+                    <?php //print_r($doctorservice);?>
                     <div class="panel-body">
                         <div class="table-responsive">
                             <table class="table table-striped table-bordered table-hover" id="dataTables-example">
@@ -160,8 +161,8 @@
                                         <td><?php echo $d['initial_Hour'];?></td>
                                         <td><?php echo $d['GMT'];?></td>
                                         <td>
-                                            <a href='<?php echo 'doctorservice/edit/'.$d['id_Doctor_Service'];  ?>'>Edit</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                            <a href="<?php echo 'doctorservice/remove/'.$d['id_Doctor_Service'];  ?>">Delete</a></td>
+                                            <a href='<?php echo base_url().'doctorservice/edit/'.$d['id_Doctor_Service'];  ?>'>Edit</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            <a href="<?php echo base_url().'doctorservice/remove/'.$d['id_Doctor_Service'];  ?>">Delete</a></td>
                                         </tr>
                                    <?php } ?>
                                 </tbody>

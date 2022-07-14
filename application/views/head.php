@@ -15,7 +15,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <link href="assets/css/style.css" rel="stylesheet" />
     <link href="assets/css/main-style.css" rel="stylesheet" />  -->
     <?php
-    echo link_tag("assets/plugins/bootstrap/bootstrap-3.4.1-dist/css/bootstrap.css");
+    echo link_tag("assets/plugins/bootstrap/bootstrap-3.4.1-dist/css/bootstrap.min.css");
     echo link_tag("assets/plugins/jQuery-Multiselect/dist/css/bootstrap-multiselect.css");
     echo link_tag("assets/font-awesome/css/font-awesome.css");
     echo link_tag("assets/plugins/pace/pace-theme-big-counter.css");
@@ -375,7 +375,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         if($isactive >= 1) { ?> 
                             <li>
                             <a href="<?php echo base_url().'doctorservice/index' ?>"><i class="fa fa-table fa-fw"></i>Schedule</a>
-                        </li>
+                            </li>
+                            <li>
+                            <a href="<?php echo base_url().'booking/doctors_booking' ?>"><i class="fa fa-table fa-fw"></i>Booking</a>
+                            </li>
                         <?php 
                         }
                     } 

@@ -24,7 +24,7 @@ class DoctorService extends CI_Controller{
       $doctor = $this->Doctor_model->get_doctor_byuser($userme);
       $theiddoctor = $doctor;
       $data['doctor'] = $this->Doctor_model->get_user_doctor($userme);
-      $data['doctorservice'] = $this->Doctorservice_model->get_doctor_service($theiddoctor);
+      $data['doctorservice'] = $this->Doctorservice_model->get_doctor_service2($theiddoctor);
       $data['mymessage'] = null;
       $this->load->view('head');
       $this->load->view('doctorservice/content_doctor_service',$data);
@@ -54,7 +54,7 @@ class DoctorService extends CI_Controller{
       $doctor = $this->Doctor_model->get_doctor_byuser($userme);
       $theiddoctor = $doctor;
       $data['documents'] = $this->Document_model->get_all_document2();
-      $data['doctorservice'] = $this->Doctorservice_model->get_doctor_service($theiddoctor);
+      $data['doctorservice'] = $this->Doctorservice_model->get_doctor_service2($theiddoctor);
       $data['mymessage'] = "Schedule Add Succesfully";
       $this->load->view('head');
       $this->load->view('doctorservice/content_doctor_service',$data);
@@ -129,7 +129,7 @@ class DoctorService extends CI_Controller{
       $doctor = $this->Doctor_model->get_doctor_byuser($userme);
       $theiddoctor = $doctor;
       $data['doctor'] = $this->Doctor_model->get_user_doctor($userme);
-      $data['doctorservice'] = $this->Doctorservice_model->get_doctor_service($theiddoctor);
+      $data['doctorservice'] = $this->Doctorservice_model->get_doctor_service2($theiddoctor);
       $this->load->view('head');
       $this->load->view('doctorservice/content_doctor_service',$data);
       $this->load->view('footer');
