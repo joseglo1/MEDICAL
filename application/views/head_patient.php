@@ -459,24 +459,25 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     $isactive = $this->session->userdata('active');
                     //if($this->session->userdata('active')) { 
                         //if($isactive >= 0) { ?> 
-                            <li>
-                                <a href="<?php echo base_url().'patient/documents' ?>"><i class="fa fa-flask fa-fw"></i>Documents</a>
+                            <!-- <li>
+                                <a href="<?php //cho base_url().'patient/documents' ?>"><i class="fa fa-flask fa-fw"></i>Documents</a>
                             </li>
+                        -->
                         <?php 
                         //} 
                         //echo "<!-- <li class='selected'> -->";
                         //if($isactive >= 1) { ?> 
                             <li>
-                            <a href="<?php echo base_url().'doctorservice/index' ?>"><i class="fa fa-table fa-fw"></i>Doctors</a>
+                            <a href="<?php echo base_url().'patient/home' ?>"><i class="fa fa-medkit"></i>&nbsp;&nbsp;Doctors</a>
                             </li>
                             <li>
-                            <a href="<?php echo base_url().'doctorservice/index' ?>"><i class="fa fa-table fa-fw"></i>Appointments</a>
+                            <a href="<?php echo base_url().'booking/patient_booking' ?>"><i class="fa fa-calendar"></i>&nbsp;&nbsp;Appointments</a>
                             </li>
                             <li>
-                            <a href="<?php echo base_url().'doctorservice/index' ?>"><i class="fa fa-table fa-fw"></i>Set Payment Method</a>
+                            <a href="#"><i class="fa fa-money"></i>&nbsp;&nbsp;Pay Appointment / Report</a>
                             </li>
                             <li>
-                            <a href="<?php echo base_url().'doctorservice/index' ?>"><i class="fa fa-table fa-fw"></i>History</a>
+                            <a href="#' ?>"><i class="fa fa-clipboard"></i>&nbsp;&nbsp;History</a>
                             </li>
                         <?php 
                         //

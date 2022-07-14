@@ -89,6 +89,22 @@ class Booking extends CI_Controller
       $this->load->view('footer');
         
   }
+  function patient_booking()
+  {
+      $this->load->model('Patient_model');
+      $this->load->model('Doctor_model');
+      $this->load->model('Booking_model');
+      $userme                 = $this->session->userdata('iduser');
+      $idpa                   = $this->Patient_model->get_patient_byuser($userme);
+      $data['patient']        = $this->Patient_model->get_patient($idpa);
+      $data['booking']        = $this->Booking_model->get_patient_booking($idpa);
+      $data['mymessage']      = null;
+
+      $this->load->view('head_patient');
+      $this->load->view('booking/content_booking_pa',$data);
+      $this->load->view('footer');
+        
+  }
   function booking_confirmation($idbooking)
   {
       $this->load->model('Patient_model');
