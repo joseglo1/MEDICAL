@@ -57,8 +57,14 @@ class Acceso extends CI_Controller
             }
             if($approve['Active']==1)  // Dr Aprrove
             {
+              $this->load->model('Patient_model');
+              $this->load->model('Booking_model');
+              $userme                 = $this->session->userdata('iduser');
+              $iddr                   = $this->Doctor_model->get_doctor_byuser($userme);
+              $data['doctor']         = $this->Doctor_model->get_doctor($iddr);
+              $data['booking']        = $this->Booking_model->get_doctors_booking($iddr);
               $this->load->view('head');
-              $this->load->view('doctor/home');
+              $this->load->view('booking/content_booking_dr',$data);
               $this->load->view('footer');
             }
           }
@@ -69,15 +75,19 @@ class Acceso extends CI_Controller
             $this->load->model('Doctor_model');
             $this->load->model('Specialist_model');
             $this->load->model('Language_model');
-            $user_ide = $approve['id_User'];
+            $this->load->model('StreamTool_model');
+            $this->load->model('Booking_model');
+            $user_ide = $this->session->userdata('iduser');
             $patient = $this->Patient_model->get_patient_byuser($user_ide);
             $theidpatient = $patient;
             $data['patient']        = $this->Patient_model->get_user_patient($user_ide);
             $data['doctor']         = $this->Doctor_model->get_all_doctor_name();
             $data['specialities']   = $this->Specialist_model->get_all_specialist();
             $data['languages']      = $this->Language_model->get_all_language();
+            $data['streamtool']     = $this->StreamTool_model->get_all_streamtool();
+            $data['bookrank']       = $this->Booking_model->calculo_rating_dr();
             $data['mymessage']      = null;
-
+      
             $this->load->view('head_patient');
             $this->load->view('patient/home',$data);
             $this->load->view('footer');

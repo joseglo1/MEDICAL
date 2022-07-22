@@ -347,12 +347,17 @@ class Booking extends CI_Controller
     $bookingranks = $this->Booking_model->calculo_rating_dr($iddoctor);
     $count_bookings = 0; 
     $sum_rates = 0;
-    foreach($bookingranks as $br) {
+    foreach($bookingranks as $br) 
+    {
       $count_bookings++;
       $sum_rates += $br['Rate_Calification'];
     }
-    if($sum_rates==0) { return 0} 
+    if($sum_rates==0) { 
+      return 0;
+    } 
     else
-    {return $sum_rates / $count_bookings;}
+    {
+      return ($sum_rates / $count_bookings);
+    }
   }
 }

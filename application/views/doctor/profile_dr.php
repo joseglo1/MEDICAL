@@ -379,6 +379,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </li>
                         <?php 
                         }
+                        ?>
+                        <li>
+                            <a href="<?php echo base_url().'booking/doctors_booking' ?>"><i class="fa fa-table fa-fw"></i>Booking</a>
+                            </li>
+                        <?php
                     } 
                         ?>
                 </ul>

@@ -4,14 +4,13 @@
  * www.crudigniter.com
  */
  
-class Doctor extends CI_Controller
-{
+  class Doctor extends CI_Controller
+  {
     function __construct()
     {
         parent::__construct();
         $this->load->model('Doctor_model');
-    } 
-
+    }
     
     function register()
     {
@@ -71,6 +70,7 @@ class Doctor extends CI_Controller
        $this->load->model('MaritalStatus_model');
        $this->load->model('StreamTool_model');
        $this->load->model('User_model');
+       $this->laod->model('Booking_model');
 
        $data['nationalities'] = $this->Nationality_model->get_all_nationality();
        $data['specialities'] = $this->Specialist_model->get_all_specialist();
@@ -79,7 +79,7 @@ class Doctor extends CI_Controller
        $data['stream'] = $this->StreamTool_model->get_all_streamtool();
        $data['mymessage'] = null;
        $this->load->view('head');
-       $this->load->view('doctor/home',$data);
+       $this->load->view('booking/doctors_booking',$data);
        $this->load->view('footer');
     }
 
@@ -207,13 +207,7 @@ class Doctor extends CI_Controller
             $headers .= 'From: <admin@domain.com>' . "\r\n";
             $enviado = mail($to,$subject,$txt,$headers);
 
-
-
-
-
-          /*  */
-
-          /*if($insert_dr) {
+          if($insert_dr) {
             $directorio_destino = base_url()."upload/drs/";
             $miarchivo = $theiddr.$thedrpicture;
             $config['upload_path'] = "upload/drs/";
@@ -229,7 +223,7 @@ class Doctor extends CI_Controller
             //if(!$upload_myfile) {
               /// Error
             //}
-          } */
+          }
 
         } // end insert user
 
@@ -485,42 +479,31 @@ class Doctor extends CI_Controller
 
         $this->session->set_userdata('iduser',$approve['id_User']);
         $this->session->set_userdata('nameu',$approve['Name']);
-        $this->session->set_userdata('email',$approve['Email']);  
+        $this->session->set_userdata('email',$approve['Email']);
 
-            //$session = $_SESSION['usuario'];
-            //redirect('principal/index');
-
-            //redirect('asignarobra/asignar');
-            //$this->load->view('eencabmenu');
-
-            $titulo['tit'] = "Doctor Dashboard";
-            $titulo['tit2'] = "Detalles";
-            $this->load->view('plantB11');
-            $this->load->view('plantB2',$titulo);
-            if($approve['TypeUser']=="D") {
-              $this->load->view('doctor/dashbord',$data);
-            }
-            else {
-              $this->load->view('client/index',$data);
-            }
-            $this->load->view('plantB4');
+        $titulo['tit'] = "Doctor Dashboard";
+        $titulo['tit2'] = "Detalles";
+        $this->load->view('plantB11');
+        $this->load->view('plantB2',$titulo);
+        if($approve['TypeUser']=="D") {
+          $this->load->view('doctor/dashbord',$data);
         }
-        else
-        {
-          $tit['titulo1'] = "Invalid User o Password";
-          $tit['titulo2'] = "Please Try Again";
-
-
-          $this->load->model('Compania_model');
-          $data['all_compania'] = $this->Compania_model->get_all_compania();
-          $data['mensaje'] = "Usuario y/o Contraseña Invalido";
-         
-          $this->load->view('eencabmenu');
-          $this->load->view('eencabmenu2',$tit);
-          $this->load->view('logo',$data);
-          $this->load->view('eencabmenu3');
+        else {
+          $this->load->view('client/index',$data);
         }
-       
-    } 
-    
-}
+        $this->load->view('plantB4');
+      }
+      else
+      {
+        $tit['titulo1'] = "Invalid User o Password";
+        $tit['titulo2'] = "Please Try Again";
+        $this->load->model('Compania_model');
+        $data['all_compania'] = $this->Compania_model->get_all_compania();
+        $data['mensaje'] = "Usuario y/o Contraseña Invalido";
+        $this->load->view('eencabmenu');
+        $this->load->view('eencabmenu2',$tit);
+        $this->load->view('logo',$data);
+        $this->load->view('eencabmenu3');
+      }    
+    }
+  } 
