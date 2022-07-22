@@ -199,7 +199,7 @@
                                         {
                                         ?> 
                                         <tr class="odd gradeX">
-                                            <td><img class="card-img-top" src="<?php  echo base_url()."images/"; ?>img_avatar2.png" alt="Card image" style="width:20%;height:20%;"></td>
+                                            <td><img class="card-img-top" src="<?php  echo base_url().'upload/profile/'.$d['picture']; ?>" alt="Card image" style="width:50px;height:50px;"></td>
                                             <td><?php echo $d['First_Name'].' '.$d['Last_Name'];?></td>
                                             <td>
                                             <?php 
@@ -230,9 +230,21 @@
                                             </td>
                                             <td class="center">
                                             <?php 
-                                    
+                                            $countrank = 0;
+                                            $mountrank = 0;
+                                            $promrank=0;
+                                            foreach($bookrank as $br) {
+                                                if($br['id_Doctor']==$d['id_Doctor']) {
+                                                    $countrank++;
+                                                    $mountrank+=$br['Rate_Calification'];
+                                                }
+                                            }
+                                            if($countrank>0) {
+                                                $promrank = $mountrank / $countrank;
+                                            }
                                             $starsnro = 1;
-                                            $rating = 3.5;
+                                            //$rating = 3.5 + 1;
+                                            $rating=$promrank + 1; 
                                             while($starsnro<=5) {
                                                 $ratingf = $rating - $starsnro;
                                                 if($ratingf >= 1)
@@ -252,7 +264,10 @@
                                             }
                                     
                                 ?>
-                                 <span>Rate: <?php echo $rating;  ?></span>
+                                 <span>Rate: <?php 
+                                    //echo $rating;
+                                    echo $promrank;  
+                                    ?></span>
                                             </td>
                                             <td>
                                                 <!-- <a href="#aboutModal?hnombre=<?php echo 'Mi NOMBRE'?>" data-toggle="modal" data-target="#myModal">

@@ -105,6 +105,136 @@ class Booking extends CI_Controller
       $this->load->view('footer');
         
   }
+  function patient_booking_pay()
+  {
+      $this->load->model('Patient_model');
+      $this->load->model('Doctor_model');
+      $this->load->model('Booking_model');
+      $userme                 = $this->session->userdata('iduser');
+      $idpa                   = $this->Patient_model->get_patient_byuser($userme);
+      $data['patient']        = $this->Patient_model->get_patient($idpa);
+      $data['booking']        = $this->Booking_model->get_patient_booking($idpa);
+      $data['mymessage']      = null;
+
+      $this->load->view('head_patient');
+      $this->load->view('booking/content_booking_pa_pay',$data);
+      $this->load->view('footer');
+        
+  }
+  function patient_pay_report($idbooking)
+  {
+      $this->load->model('Patient_model');
+      $this->load->model('Doctor_model');
+      $this->load->model('Booking_model');
+      $this->load->model('StreamTool_model');
+      $userme                 = $this->session->userdata('iduser');
+      $idpa                   = $this->Patient_model->get_patient_byuser($userme);
+      $data['patient']        = $this->Patient_model->get_patient($idpa);
+      $data['idbooking']      = $idbooking;
+      $data['mymessage']      = '';
+
+      $this->load->view('head_patient');
+      $this->load->view('booking/report_paypal',$data);
+      $this->load->view('footer');
+        
+  }
+  function send_pay_report()
+  {
+      $this->load->model('Patient_model');
+      $this->load->model('Doctor_model');
+      $this->load->model('Booking_model');
+      $this->load->model('StreamTool_model');
+      $this->load->model('Invoice_model');
+      $this->load->model('Notification_model');
+
+      $idbooking      = $this->input->post('idbooking');
+      $datepaid       = $this->input->post('datepaid');
+      $reference      = $this->input->post('reference');
+      $invoiceamount  = $this->input->post('amountpay');
+      $note           = $this->input->post('note');
+
+      $params         = array (
+        'id_Booking'        => $idbooking,
+        'Date_Issue'        => $datepaid,
+        'Date_Paid'         => $datepaid,
+        'Reference'         => $reference,
+        'invoice_Amount'    => $invoiceamount,
+        'Note'              => $note,
+        'id_Method_Payment' => 1
+      );
+
+      $resultado = $this->Invoice_model->add_invoice($params);
+      $userme                 = $this->session->userdata('iduser');
+      if($resultado) {
+        $params2         = array (
+          'id_User'           => $userme,
+          'note'              => "You paid successfully your appointment"
+        );
+        $notif = $this->Notification_model->add_notification($params2);
+        $params3         = array (
+          'id_Status_Meeting' => 3
+        );
+        $book  = $this->Booking_model->update_booking($idbooking,$params3);
+      }
+      $idpa                   = $this->Patient_model->get_patient_byuser($userme);
+      $data['patient']        = $this->Patient_model->get_patient($idpa);
+      $data['idbooking']      = $idbooking;
+      $data['mymessage']      = 'Report Paypal Pay Successfully';
+
+      $this->load->view('head_patient');
+      $this->load->view('booking/report_paypal',$data);
+      $this->load->view('footer');
+        
+  }
+
+  function evaluate($idbooking)
+  {
+      $this->load->model('Patient_model');
+      $this->load->model('Doctor_model');
+      $this->load->model('Booking_model');
+      $this->load->model('Notification_model');
+
+      $userme                 = $this->session->userdata('iduser');
+      $idpa                   = $this->Patient_model->get_patient_byuser($userme);
+      $data['patient']        = $this->Patient_model->get_patient($idpa);
+      $data['idbooking']      = $idbooking;
+      $data['mymessage']      = '';
+      $this->load->view('head_patient');
+      $this->load->view('booking/patient_eval',$data);
+      $this->load->view('footer');
+        
+  }
+
+  function send_eval()
+  {
+      $this->load->model('Patient_model');
+      $this->load->model('Doctor_model');
+      $this->load->model('Booking_model');
+      $this->load->model('StreamTool_model');
+      $this->load->model('Invoice_model');
+      $this->load->model('Notification_model');
+
+      $idbooking      = $this->input->post('idbooking');
+      $range          = $this->input->post('range');
+
+      $params         = array (
+        'id_Booking'        => $idbooking,
+        'id_Status_Meeting' => 9,
+        'Rate_Calification' => $range
+      );
+
+      $resultado = $this->Booking_model->update_booking($idbooking, $params);
+      $userme                 = $this->session->userdata('iduser');
+      $idpa                   = $this->Patient_model->get_patient_byuser($userme);
+      $data['patient']        = $this->Patient_model->get_patient($idpa);
+      $data['booking']        = $this->Booking_model->get_patient_booking($idpa);
+      $data['mymessage']      = 'Thankyou for evaluate the appointment';
+      $this->load->view('head_patient');
+      $this->load->view('booking/content_booking_pa_eval',$data);
+      $this->load->view('footer');
+        
+  }
+
   function booking_confirmation($idbooking)
   {
       $this->load->model('Patient_model');
@@ -123,6 +253,26 @@ class Booking extends CI_Controller
       $this->load->view('footer');
         
   }
+
+  function booking_pay()
+  {
+      $this->load->model('Patient_model');
+      $this->load->model('Doctor_model');
+      $this->load->model('Booking_model');
+      $this->load->model('StreamTool_model');
+      $user_ide = $this->session->userdata('iduser');
+      $patient = $this->Patient_model->get_patient_byuser($user_ide);
+      $theidpatient = $patient;
+      $data['patient']        = $this->Patient_model->get_user_patient($user_ide);
+      $data['mymessage']      = null;
+
+      $this->load->view('head_patient');
+      $this->load->view('booking/paypal',$data);
+      $this->load->view('footer');
+        
+  }
+
+
   function confirm($idbooking)
   {
     /*
@@ -142,15 +292,19 @@ class Booking extends CI_Controller
       'id_Status_Meeting'   => 2
     );
 
-    
-    $resultado              = $this->Booking_model->confirm_booking($idbooking,$param);
+    if($streamlink<>'') {
+      $resultado            = $this->Booking_model->confirm_booking($idbooking,$param);
+    }
     
     $userme                 = $this->session->userdata('iduser');
     $iddr                   = $this->Doctor_model->get_doctor_byuser($userme);
     $data['doctor']         = $this->Doctor_model->get_doctor($iddr);
     $data['booking']        = $this->Booking_model->get_doctors_booking($iddr);
     $data['streamtool']     = $this->StreamTool_model->get_all_streamtool();
-    $data['mymessage']      = "Confirmation a Appointment Successfully";
+    $data['mymessage']      = "";
+    if($streamlink<>'') {
+      $data['mymessage']    = "Confirmation a Appointment Successfully";
+    }
     $this->load->view('head');
     $this->load->view('booking/content_booking_dr',$data);
     $this->load->view('footer');
@@ -172,5 +326,33 @@ class Booking extends CI_Controller
     $this->load->view('booking/content_booking_dr',$data);
     $this->load->view('footer');
         
+  }
+  function patient_booking_eval()
+  {
+      $this->load->model('Patient_model');
+      $this->load->model('Doctor_model');
+      $this->load->model('Booking_model');
+      $userme                 = $this->session->userdata('iduser');
+      $idpa                   = $this->Patient_model->get_patient_byuser($userme);
+      $data['patient']        = $this->Patient_model->get_patient($idpa);
+      $data['booking']        = $this->Booking_model->get_patient_booking($idpa);
+      $data['mymessage']      = null;
+
+      $this->load->view('head_patient');
+      $this->load->view('booking/content_booking_pa_eval',$data);
+      $this->load->view('footer');
+        
+  }
+  function calculo_rating($iddoctor) {
+    $bookingranks = $this->Booking_model->calculo_rating_dr($iddoctor);
+    $count_bookings = 0; 
+    $sum_rates = 0;
+    foreach($bookingranks as $br) {
+      $count_bookings++;
+      $sum_rates += $br['Rate_Calification'];
+    }
+    if($sum_rates==0) { return 0} 
+    else
+    {return $sum_rates / $count_bookings;}
   }
 }

@@ -62,6 +62,7 @@ class Patient extends CI_Controller
       $this->load->model('Specialist_model');
       $this->load->model('Language_model');
       $this->load->model('StreamTool_model');
+      $this->load->model('Booking_model');
       $user_ide = $this->session->userdata('iduser');
       $patient = $this->Patient_model->get_patient_byuser($user_ide);
       $theidpatient = $patient;
@@ -70,6 +71,7 @@ class Patient extends CI_Controller
       $data['specialities']   = $this->Specialist_model->get_all_specialist();
       $data['languages']      = $this->Language_model->get_all_language();
       $data['streamtool']     = $this->StreamTool_model->get_all_streamtool();
+      $data['bookrank']       = $this->Booking_model->calculo_rating_dr();
       $data['mymessage']      = null;
 
       $this->load->view('head_patient');

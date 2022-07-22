@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 07-07-2022 a las 03:01:38
+-- Tiempo de generación: 21-07-2022 a las 03:19:57
 -- Versión del servidor: 8.0.21
 -- Versión de PHP: 7.4.9
 
@@ -32,6 +32,7 @@ CREATE TABLE IF NOT EXISTS `booking` (
   `id_Booking` int NOT NULL AUTO_INCREMENT,
   `id_Doctor` int NOT NULL,
   `id_Patient` int NOT NULL,
+  `id_Doctor_Service` int NOT NULL,
   `Date_Booking` date NOT NULL,
   `Hour` int NOT NULL,
   `id_Stream_Tool` int NOT NULL,
@@ -40,12 +41,15 @@ CREATE TABLE IF NOT EXISTS `booking` (
   `End` time DEFAULT NULL,
   `Rate_Calification` int DEFAULT NULL,
   `id_Status_Meeting` int NOT NULL DEFAULT '1',
-  PRIMARY KEY (`id_Booking`),
-  KEY `id_Doctor` (`id_Doctor`),
-  KEY `id_Client` (`id_Patient`),
-  KEY `id_Stream_Tool` (`id_Stream_Tool`),
-  KEY `id_Status_Meeting` (`id_Status_Meeting`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  PRIMARY KEY (`id_Booking`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4  ;
+
+--
+-- Volcado de datos para la tabla `booking`
+--
+
+INSERT INTO `booking` (`id_Booking`, `id_Doctor`, `id_Patient`, `id_Doctor_Service`, `Date_Booking`, `Hour`, `id_Stream_Tool`, `Link_Stream`, `Started`, `End`, `Rate_Calification`, `id_Status_Meeting`) VALUES
+(2, 12, 1, 1, '2022-07-26', 0, 1, 'https://ghghkke.com', NULL, NULL, 4, 9);
 
 -- --------------------------------------------------------
 
@@ -64,7 +68,7 @@ CREATE TABLE IF NOT EXISTS `credentials` (
   `Upload_Date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `Status` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id_Credentials`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4  ;
 
 --
 -- Volcado de datos para la tabla `credentials`
@@ -84,19 +88,19 @@ CREATE TABLE IF NOT EXISTS `doctor` (
   `id_Doctor` int NOT NULL AUTO_INCREMENT,
   `id_User` int NOT NULL,
   `First_Name` varchar(50) NOT NULL,
-  `Middle_Name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `Middle_Name` varchar(50) CHARACTER SET utf8mb4   DEFAULT NULL,
   `Last_Name` varchar(50) NOT NULL,
   `Gender` text NOT NULL,
   `id_Marital_Status` int NOT NULL,
   `id_Nationality` int NOT NULL,
   `Date_Birth` date NOT NULL,
   `Phone_Number` varchar(10) NOT NULL,
-  `id_Specialist` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `id_Specialist` varchar(100) CHARACTER SET utf8mb4   DEFAULT NULL,
   `Experience_Years` int NOT NULL,
-  `id_Language` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `id_Language` varchar(100) CHARACTER SET utf8mb4   DEFAULT NULL,
   `id_Stream_Tool` int DEFAULT NULL,
-  `Resum` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT 'About Myself',
-  `picture` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT 'Path picture locate',
+  `Resum` varchar(1000) CHARACTER SET utf8mb4   NOT NULL COMMENT 'About Myself',
+  `picture` varchar(200) CHARACTER SET utf8mb4   DEFAULT 'img_avatar1.png' COMMENT 'Path picture locate',
   `Doctor_Approved` tinyint(1) NOT NULL DEFAULT '0',
   `Date_Register` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `Status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0=not delete 1=delete',
@@ -105,7 +109,7 @@ CREATE TABLE IF NOT EXISTS `doctor` (
   KEY `fx_id_Marital_Status` (`id_Marital_Status`) USING BTREE,
   KEY `fx_id_Nationality` (`id_Nationality`) USING BTREE,
   KEY `id_Stream_Tool` (`id_Stream_Tool`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4  ;
 
 --
 -- Volcado de datos para la tabla `doctor`
@@ -113,11 +117,11 @@ CREATE TABLE IF NOT EXISTS `doctor` (
 
 INSERT INTO `doctor` (`id_Doctor`, `id_User`, `First_Name`, `Middle_Name`, `Last_Name`, `Gender`, `id_Marital_Status`, `id_Nationality`, `Date_Birth`, `Phone_Number`, `id_Specialist`, `Experience_Years`, `id_Language`, `id_Stream_Tool`, `Resum`, `picture`, `Doctor_Approved`, `Date_Register`, `Status`) VALUES
 (12, 16, 'Jose', 'Gregorio', 'Lopez', 'Men', 1, 187, '2022-06-08', '+584241675', '1|3|2', 6, '1|2', 0, '\"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.', 'DR-12-JGLS.jpg', 0, '2022-06-02 00:29:25', 0),
-(13, 22, 'Jesus', 'Maria', 'Perez', 'Men', 1, 187, '2022-06-08', '+584241675', '1|3|2', 6, '1|2', 0, 'Nothing About ok Me \"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.', 'DR-12-JGLS.jpg', 0, '2022-06-02 00:29:25', 0),
-(14, 24, 'Carmen ', 'Josefina', 'Santana', 'Woman', 1, 187, '2022-06-08', '+584241675', '1|3|2', 6, '1|2', 0, '\"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.', 'DR-12-JGLS.jpg', 0, '2022-06-02 00:29:25', 0),
-(15, 23, 'Diana', 'Carolina', 'Uzcategui', 'Woman', 1, 187, '2022-06-08', '+584241675', '1|3|2', 6, '1|2', 2, '\"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.', 'DR-12-JGLS.jpg', 0, '2022-06-02 00:29:25', 0),
-(16, 25, 'Carmen ', 'Bastidas', 'Corona', 'Woman', 1, 187, '2022-06-08', '+584241675', '1|3|2', 6, '1|2', 0, '\"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.', 'DR-12-JGLS.jpg', 0, '2022-06-02 00:29:25', 0),
-(17, 26, 'Jose', 'R', 'Smith', 'Men', 1, 11, '1966-07-23', '+584241678', '2|6', 15, '17|31', 1, 'A brief description about you', '', 0, '2022-06-30 01:22:44', 0);
+(13, 22, 'Jesus', 'Maria', 'Perez', 'Men', 1, 187, '2022-06-08', '+584241675', '1|3|2', 6, '1|2', 0, 'Nothing About ok Me \"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.', 'img_avatar1.png', 0, '2022-06-02 00:29:25', 0),
+(14, 24, 'Carmen ', 'Josefina', 'Santana', 'Woman', 1, 187, '2022-06-08', '+584241675', '1|3|2', 6, '1|2', 0, '\"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.', 'img_avatar1.png', 0, '2022-06-02 00:29:25', 0),
+(15, 23, 'Diana', 'Carolina', 'Uzcategui', 'Woman', 1, 187, '2022-06-08', '+584241675', '1|3|2', 6, '1|2', 2, '\"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.', 'img_avatar1.png', 0, '2022-06-02 00:29:25', 0),
+(16, 25, 'Carmen ', 'Bastidas', 'Corona', 'Woman', 1, 187, '2022-06-08', '+584241675', '1|3|2', 6, '1|2', 0, '\"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.', 'img_avatar1.png', 0, '2022-06-02 00:29:25', 0),
+(17, 26, 'Jose', 'R', 'Smith', 'Men', 1, 11, '1966-07-23', '+584241678', '2|6', 15, '17|31', 1, 'A brief description about you', 'img_avatar1.png', 0, '2022-06-30 01:22:44', 0);
 
 -- --------------------------------------------------------
 
@@ -135,7 +139,7 @@ CREATE TABLE IF NOT EXISTS `doctor_service` (
   `Status` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id_Doctor_Service`),
   KEY `fx_id_Doctor` (`id_Doctor`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4  ;
 
 --
 -- Volcado de datos para la tabla `doctor_service`
@@ -143,9 +147,8 @@ CREATE TABLE IF NOT EXISTS `doctor_service` (
 
 INSERT INTO `doctor_service` (`id_Doctor_Service`, `id_Doctor`, `Day_Week`, `initial_Hour`, `GMT`, `Status`) VALUES
 (1, 12, 3, '11:00am', 'UTC', 0),
-(11, 12, 4, '12:30am', 'UTC', 0),
 (14, 12, 3, '2:00pm', 'UTC', 1),
-(15, 12, 3, '3:00pm', 'UTC', 0);
+(15, 12, 3, '4:00pm', '', 0);
 
 -- --------------------------------------------------------
 
@@ -161,7 +164,7 @@ CREATE TABLE IF NOT EXISTS `document` (
   `Note` varchar(500) NOT NULL,
   `Status` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id_Document`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4  ;
 
 --
 -- Volcado de datos para la tabla `document`
@@ -185,7 +188,7 @@ CREATE TABLE IF NOT EXISTS `invoice` (
   `id_Booking` int NOT NULL,
   `Date_Issue` date NOT NULL,
   `Date_Paid` date NOT NULL,
-  `Referencia` varchar(30) NOT NULL,
+  `Reference` varchar(30) CHARACTER SET utf8mb4   NOT NULL,
   `id_Method_Payment` int NOT NULL,
   `Invoice_Amount` decimal(10,2) NOT NULL,
   `Note` varchar(500) NOT NULL,
@@ -193,7 +196,14 @@ CREATE TABLE IF NOT EXISTS `invoice` (
   PRIMARY KEY (`id_Invoice`),
   KEY `fx_id_Booking` (`id_Booking`) USING BTREE,
   KEY `fx_id_Method_Payment` (`id_Method_Payment`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4  ;
+
+--
+-- Volcado de datos para la tabla `invoice`
+--
+
+INSERT INTO `invoice` (`id_Invoice`, `id_Booking`, `Date_Issue`, `Date_Paid`, `Reference`, `id_Method_Payment`, `Invoice_Amount`, `Note`, `Paid`) VALUES
+(1, 2, '2022-07-20', '2022-07-20', '589745621', 1, '15.00', 'This is a test ', 0);
 
 -- --------------------------------------------------------
 
@@ -206,7 +216,7 @@ CREATE TABLE IF NOT EXISTS `language` (
   `id_Language` int NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL,
   PRIMARY KEY (`id_Language`)
-) ENGINE=InnoDB AUTO_INCREMENT=143 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=143 DEFAULT CHARSET=utf8mb4  ;
 
 --
 -- Volcado de datos para la tabla `language`
@@ -367,7 +377,7 @@ CREATE TABLE IF NOT EXISTS `marital_status` (
   `id_Marital_Status` int NOT NULL AUTO_INCREMENT,
   `Name` varchar(100) NOT NULL,
   PRIMARY KEY (`id_Marital_Status`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='Marital Status';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4   COMMENT='Marital Status';
 
 --
 -- Volcado de datos para la tabla `marital_status`
@@ -391,7 +401,14 @@ CREATE TABLE IF NOT EXISTS `method_payment` (
   `id_Method_Payment` int NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL,
   PRIMARY KEY (`id_Method_Payment`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4  ;
+
+--
+-- Volcado de datos para la tabla `method_payment`
+--
+
+INSERT INTO `method_payment` (`id_Method_Payment`, `name`) VALUES
+(1, 'PayPal');
 
 -- --------------------------------------------------------
 
@@ -404,7 +421,7 @@ CREATE TABLE IF NOT EXISTS `nationality` (
   `id_Nationality` int NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL,
   PRIMARY KEY (`id_Nationality`)
-) ENGINE=InnoDB AUTO_INCREMENT=193 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=193 DEFAULT CHARSET=utf8mb4  ;
 
 --
 -- Volcado de datos para la tabla `nationality`
@@ -607,6 +624,30 @@ INSERT INTO `nationality` (`id_Nationality`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `notification`
+--
+
+DROP TABLE IF EXISTS `notification`;
+CREATE TABLE IF NOT EXISTS `notification` (
+  `id_Notification` int NOT NULL AUTO_INCREMENT,
+  `id_User` int NOT NULL,
+  `note` varchar(500) NOT NULL,
+  `datenot` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `status` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id_Notification`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4  ;
+
+--
+-- Volcado de datos para la tabla `notification`
+--
+
+INSERT INTO `notification` (`id_Notification`, `id_User`, `note`, `datenot`, `status`) VALUES
+(1, 21, 'You have a new appoint wit Dr Jose Lopez. please Check your account form more details', '2022-07-10 00:15:41', 0),
+(2, 21, 'You paid successfully your appointment', '2022-07-20 17:52:44', 0);
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `patient`
 --
 
@@ -630,7 +671,7 @@ CREATE TABLE IF NOT EXISTS `patient` (
   `Note_Chronic_Desease` varchar(1000) NOT NULL,
   `Family_Desease_History` varchar(1000) NOT NULL,
   `Email` varchar(100) NOT NULL,
-  `picture` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `picture` varchar(200) CHARACTER SET utf8mb4   DEFAULT NULL,
   `Date_Register` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `Status` int NOT NULL DEFAULT '0' COMMENT '0=not delete  1= deleted',
   PRIMARY KEY (`id_Patient`),
@@ -638,14 +679,14 @@ CREATE TABLE IF NOT EXISTS `patient` (
   KEY `fx_marital_status` (`id_Marital_Status`),
   KEY `fx_id_Language` (`id_Language`) USING BTREE,
   KEY `id_Nationality` (`id_Nationality`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4  ;
 
 --
 -- Volcado de datos para la tabla `patient`
 --
 
 INSERT INTO `patient` (`id_Patient`, `id_User`, `First_Name`, `Middle_Name`, `Last_Name`, `Gender`, `Date_Birth`, `id_Nationality`, `id_Language`, `id_Marital_Status`, `Smoker`, `Phone_Number`, `Height`, `Weight`, `Chronic_Desease`, `Note_Chronic_Desease`, `Family_Desease_History`, `Email`, `picture`, `Date_Register`, `Status`) VALUES
-(1, 21, 'Jose', 'M', 'Lopez', 'Men', '1966-04-21', 187, 114, 3, 1, '+584241675', '1.71', '62.50', 0, 'A brief description of your disease', 'A brief description of your disease history', 'elexitoesmio@yahoo.com', NULL, '2022-06-25 19:01:07', 0);
+(1, 21, 'Jose', 'M', 'Lopez', 'Men', '1966-04-21', 187, 114, 3, 1, '+584241675', '1.71', '62.50', 0, 'A brief description of your disease', 'A brief description of your disease history', 'elexitoesmio@yahoo.com', 'PA-1-IMG_20210627_143008_508.jpg', '2022-06-25 19:01:07', 0);
 
 -- --------------------------------------------------------
 
@@ -658,7 +699,7 @@ CREATE TABLE IF NOT EXISTS `specialist` (
   `id_Specialist` int NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL,
   PRIMARY KEY (`id_Specialist`)
-) ENGINE=InnoDB AUTO_INCREMENT=193 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=193 DEFAULT CHARSET=utf8mb4  ;
 
 --
 -- Volcado de datos para la tabla `specialist`
@@ -869,7 +910,7 @@ CREATE TABLE IF NOT EXISTS `status_meeting` (
   `id_Status_Meeting` int NOT NULL AUTO_INCREMENT,
   `Name` varchar(20) NOT NULL,
   PRIMARY KEY (`id_Status_Meeting`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4  ;
 
 --
 -- Volcado de datos para la tabla `status_meeting`
@@ -877,11 +918,14 @@ CREATE TABLE IF NOT EXISTS `status_meeting` (
 
 INSERT INTO `status_meeting` (`id_Status_Meeting`, `Name`) VALUES
 (1, 'No Start'),
-(2, 'Start'),
-(3, 'Re Start'),
-(4, 'Interrupted'),
-(5, 'Canceled'),
-(6, 'Incomplete');
+(2, 'Confirmed'),
+(3, 'Paid'),
+(4, 'Start'),
+(5, 'Re Start'),
+(6, 'Interrupted'),
+(7, 'Canceled'),
+(8, 'Complete'),
+(9, 'Terminate');
 
 -- --------------------------------------------------------
 
@@ -895,13 +939,14 @@ CREATE TABLE IF NOT EXISTS `stream_tool` (
   `Name` varchar(50) NOT NULL,
   `Status` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id_Stream_Tool`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4  ;
 
 --
 -- Volcado de datos para la tabla `stream_tool`
 --
 
 INSERT INTO `stream_tool` (`id_Stream_Tool`, `Name`, `Status`) VALUES
+(0, 'No Defined Yet', 0),
 (1, 'Zoom', 0),
 (2, 'Google Meeting', 0),
 (3, 'FaceBook', 0),
@@ -919,11 +964,11 @@ CREATE TABLE IF NOT EXISTS `user` (
   `Name` varchar(50) NOT NULL,
   `Email` varchar(100) NOT NULL,
   `Register_Date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `Type_User` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT 'D=Doctor  P=Patient',
-  `Password` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `Type_User` text CHARACTER SET utf8mb4   NOT NULL COMMENT 'D=Doctor  P=Patient',
+  `Password` varchar(500) CHARACTER SET utf8mb4   NOT NULL,
   `Active` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id_User`)
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4  ;
 
 --
 -- Volcado de datos para la tabla `user`
@@ -943,15 +988,6 @@ INSERT INTO `user` (`id_User`, `Name`, `Email`, `Register_Date`, `Type_User`, `P
 --
 
 --
--- Filtros para la tabla `booking`
---
-ALTER TABLE `booking`
-  ADD CONSTRAINT `booking_ibfk_1` FOREIGN KEY (`id_Doctor`) REFERENCES `doctor` (`id_Doctor`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `booking_ibfk_2` FOREIGN KEY (`id_Patient`) REFERENCES `patient` (`id_Patient`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `booking_ibfk_3` FOREIGN KEY (`id_Status_Meeting`) REFERENCES `status_meeting` (`id_Status_Meeting`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `booking_ibfk_4` FOREIGN KEY (`id_Stream_Tool`) REFERENCES `stream_tool` (`id_Stream_Tool`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
 -- Filtros para la tabla `doctor`
 --
 ALTER TABLE `doctor`
@@ -961,7 +997,6 @@ ALTER TABLE `doctor`
 -- Filtros para la tabla `invoice`
 --
 ALTER TABLE `invoice`
-  ADD CONSTRAINT `invoice_ibfk_1` FOREIGN KEY (`id_Booking`) REFERENCES `booking` (`id_Booking`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `invoice_ibfk_2` FOREIGN KEY (`id_Method_Payment`) REFERENCES `method_payment` (`id_Method_Payment`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --

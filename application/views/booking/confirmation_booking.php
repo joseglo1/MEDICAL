@@ -20,7 +20,7 @@
                         ?>
                         <div class="row">
                             <center>
-                                <form name="Formapp" method= "POST" action="">
+                                <form name="Formapp" method= "POST" action="<?php echo base_url();?>booking/confirm/<?php echo $booking[0]['id_Booking'];?>">
                                 <div class="col-sm-9">
                                     <div class="card">
                                     <div class="card-body">
@@ -48,14 +48,14 @@
                                                     </select>
                                                 </div>
                                                 <div class="col-sm-7">
-                                                    <label>Choose Stream Link</label>
-                                                    <input type="text" class="form-control" name="Stream_Link" placeholder="https://zoom-us?re=dsddsd" require>
+                                                    <label>Choose Stream Link <font color='red'>Required</font></label>
+                                                    <input type="text" id="streamlink" class="form-control" name="Stream_Link" placeholder="https://zoom-us?re=dsddsd" onblur="validaenlace();">
                                                 </div> 
                                             </div>
                                         </div>
                                         <br>
-                                        <a href="<?php echo base_url();?>booking/confirm/<?php echo $booking[0]['id_Booking'];?>" class="btn btn-primary">Confirm</a>
-                                        <a href="#" class="btn btn-danger">Go Back</a>
+                                        <button class="btn btn-primary" type="submit">Confirm</button>
+                                        <a href="<?php echo base_url(); ?>booking/doctors_booking"><button class="btn btn-danger">GO BACK</button></a>
                                     </div>
                                     </div>
                                 </div>
@@ -68,3 +68,10 @@
             </div>
         </div>
     </div>
+    <script>
+        function validaenlace() {
+            var thelink = document.getElementById('streamlink').value;
+            if(thelink=='')
+            alert("You must need a Stream Link");
+        }
+    </script>

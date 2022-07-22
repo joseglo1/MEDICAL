@@ -138,4 +138,10 @@ class Booking_model extends CI_Model
     {
         return $this->db->delete('booking',array('id_Booking'=>$id_booking));
     }
+
+    function calculo_rating_dr() {
+        $consulta = "SELECT * FROM booking WHERE id_Status_Meeting > 7 ;";
+        $query = $this->db->query($consulta);
+        return $query->result_array();
+    }
 }

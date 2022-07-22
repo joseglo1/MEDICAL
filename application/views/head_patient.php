@@ -474,10 +474,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <a href="<?php echo base_url().'booking/patient_booking' ?>"><i class="fa fa-calendar"></i>&nbsp;&nbsp;Appointments</a>
                             </li>
                             <li>
-                            <a href="#"><i class="fa fa-money"></i>&nbsp;&nbsp;Pay Appointment / Report</a>
+                            <a href="<?php echo base_url().'booking/booking_pay' ?>"><i class="fa fa-money"></i>&nbsp;&nbsp;Pay with Payapl</a>
                             </li>
                             <li>
-                            <a href="#' ?>"><i class="fa fa-clipboard"></i>&nbsp;&nbsp;History</a>
+                            <a href="<?php echo base_url().'booking/patient_booking_pay' ?>"><i class="fa fa-clipboard"></i>&nbsp;&nbsp;Report Payment</a>
+                            </li>
+                            <li>
+                            <a href="<?php echo base_url().'booking/patient_booking_eval' ?>"><i class="fa fa-clipboard"></i>&nbsp;&nbsp;Calificate Appointment</a>
                             </li>
                         <?php 
                         //

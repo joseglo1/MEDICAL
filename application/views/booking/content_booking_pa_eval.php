@@ -3,7 +3,7 @@
         <div class="row">
              <!-- page header -->
             <div class="col-lg-12">
-                <h1 class="page-header">Doctor Booking</h1>
+                <h1 class="page-header">Evaluation of appointments </h1>
             </div>
             <!--end page header -->
         </div>
@@ -11,9 +11,9 @@
             <div class="col-lg-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                         <h3>Doctor Available Schedule</h3>
+                         <h3>Range 1-Poor 2-Regular 3-Good 4-Very Good 5-Excelent </h3>
                     </div>
-                    <?php //print_r($doctorservice);?>
+                    <?php //print_r($booking);?>
                     <div class="panel-body">
                         <div class="table-responsive">
                             <table class="table table-striped table-bordered table-hover" id="dataTables-example">
@@ -22,7 +22,7 @@
                                         <th>#</th>
                                         <th>Date</th>
                                         <th>Hour</th>
-                                        <th>Patient Name</th>
+                                        <th>Doctor Name</th>
                                         <th>Link Stream</th>
                                         <th>Stream Tool</th>
                                         <th>Status</th>
@@ -31,34 +31,29 @@
                                 </thead>
                                 <tbody>
                                 <?php 
-                                foreach($booking as $b) { ?>
+                                foreach($booking as $b) { 
+                                    
+                                    if($b['id_Status_Meeting'] < 8)  // Appointments confirmed by Dr
+                                       continue;
+                                ?>
                                     <tr class="odd gradeX">
                                         <td ><?php echo $b['id_Booking']?></td>
                                         <td><?php echo $b['Date_Booking'];?></td>
                                         <td><?php echo $b['Hour_Booking'];?></td>
-                                        <td><?php echo $b['Patient_Name'];?></td>
+                                        <td><?php echo $b['Doctor_Name'];?></td>
                                         <td><?php echo $b['Link_Stream'];?></td>
                                         <td><?php echo $b['Stream_Tool'];?></td>
                                         <td><?php echo $b['Status_Meeting'];?></td>
                                         <td>
-                                            <?php if($b['id_Status_Meeting'] == 1) { // NO START ?>
-                                            <a href='<?php echo base_url().'booking/booking_confirmation/'.$b['id_Booking'];  ?>'>Confirm</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            <?php if($b['Status_Meeting']==8) { ?>
+                                            <a href="<?php echo base_url().'booking/evaluate/'.$b['id_Booking'];?>">Done</a>
                                             <?php }
-                                            else { ?>
-                                            <a href='#'>Confirm</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                            <?php } ?>
-
-
-                                            <?php if($b['id_Status_Meeting'] < 7) { ?>
-                                            <a href="<?php echo base_url().'booking/booking_cancelation/'.$b['id_Booking'];  ?>">Cancel</a></td>
-                                            <?php }
-                                            else
-                                            { ?>
-                                            <a href="">Cancel</a></td>
-                                            <?php
-                                            }
+                                            else {
                                             ?>
-                                        </tr>
+                                            <span class="label label-danger">Evaluate</span>
+                                            <?php } ?>
+                                        </td>
+                                    </tr>
                                    <?php } ?>
                                 </tbody>
                             </table>
